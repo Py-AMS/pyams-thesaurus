@@ -46,22 +46,22 @@ const thesaurus = {
                         if (data.status) {  // System view
                             MyAMS.ajax.handleJSON(data);
                         } else if (data.used) {
-                            $('>li >div i.extract-checker[data-ams-extract-name="' + data.extract + '"]',
+                            $(`>li >div i.extract-checker[data-ams-extract-name="${data.extract}"]`,
                                 checker.closest('div').siblings('ul.group'))
                                 .replaceWith($('<i></i>').addClass('extract-checker far fa-fw fa-square')
-                                                         .css('color', '#' + data.color)
+                                                         .css('color', `#${data.color}`)
                                                          .attr('data-ams-extract-name', data.extract));
                             checker.replaceWith($(`<i></i>`).addClass('extract-checker fas fa-fw fa-square used')
-                                                            .css('color', '#' + data.color)
+                                                            .css('color', `#${data.color}`)
                                                             .attr('data-ams-extract-name', data.extract));
                         } else {
-                            $('i.extract-checker[data-ams-extract-name="' + data.extract + '"]',
+                            $(`i.extract-checker[data-ams-extract-name="${data.extract}"]`,
                                 checker.closest('div').siblings('ul.group'))
                                 .replaceWith($('<i></i>').addClass('extract-checker fas fa-fw fa-square disabled')
                                                          .css('color', 'silver')
                                                          .attr('data-ams-extract-name', data.extract));
                             checker.replaceWith($('<i></i>').addClass('extract-checker far fa-fw fa-square')
-                                                            .css('color', '#' + data.color)
+                                                            .css('color', `#${data.color}`)
                                                             .attr('data-ams-extract-name', data.extract));
                         }
                     });
@@ -89,7 +89,7 @@ const thesaurus = {
          */
         displaySubNodes: (term, nodes, source) => {
             if (source === undefined) {
-                source = $('span.term:withtext("' + term + '")').siblings('i[data-ams-click-handler]');
+                source = $(`span.term:withtext("${term}")`).siblings('i[data-ams-click-handler]');
             }
             const
                 group = source.parents('span.label').siblings('ul.group'),
@@ -104,16 +104,17 @@ const thesaurus = {
                                               .appendTo(li),
                         square = $('<i></i>').attr('data-ams-extract-name', extract.name)
                                              .addClass('fas fa-fw fa-square extract-checker')
-                                             .css('color', '#' + extract.color),
-                        parent_checker = $('>div i.extract-checker[data-ams-extract-name="' + extract.name + '"]', parent);
-                    if (parent_checker.hasClass('used')) {
+                                             .css('color', `#${extract.color}`),
+                        parentChecker = $(`>div i.extract-checker[data-ams-extract-name="${extract.name}"]`, parent);
+                    if (parentChecker.hasClass('used')) {
                         if (extract.used) {
                             square.addClass('used');
                         } else {
                             square.removeClass('fas')
                                 .addClass('far');
                         }
-                        let switcher = $('i.switcher', 'table.extracts tr[data-ams-element-name="' + extract.name + '"]'),
+                        const
+                            switcher = $('i.switcher', `table.extracts tr[data-ams-element-name="${extract.name}"]`),
                             svg = $('svg', switcher),
                             icon = svg.exists() ? svg : switcher;
                         if (!icon.hasClass('fa-eye')) {
@@ -245,7 +246,7 @@ const thesaurus = {
                         term: options.term
                     }).then((result) => {
                         MyAMS.thesaurus.tree.displaySubNodes(result.parent, result.nodes);
-                        const element = $('span.term:withtext("' + result.term + '")').parents('span.label');
+                        const element = $(`span.term:withtext("${result.term}")`).parents('span.label');
                         if (element.exists()) {
                             MyAMS.ajax.check($.fn.scrollTo,
                                 `${MyAMS.env.baseURL}../ext/jquery-scrollto${MyAMS.env.extext}.js`).then(() => {
@@ -280,8 +281,8 @@ const thesaurus = {
          * Update term label or status
          */
         updateTerm: function(form, options) {
-            let handler = $('span.term:withtext("' + options.term + '")').siblings('i[data-ams-click-handler]');
-            let icon;
+            let handler = $(`span.term:withtext("${options.term}")`).siblings('i[data-ams-click-handler]'),
+                icon;
             const svg = $('svg', handler);
             if (svg.exists()) {
                 icon = svg;
@@ -341,11 +342,12 @@ const thesaurus = {
                 } else {
                     switcher = icon;
                 }
+                const checker = $(`i.extract-checker[data-ams-extract-name="${extract}"]`);
                 if (switcher.hasClass('fa-eye-slash')) {
-                    $('i.extract-checker[data-ams-extract-name="' + extract + '"]').css('visibility', '');
+                    checker.css('visibility', '');
                     MyAMS.core.switchIcon(icon, 'eye-slash', 'eye');
                 } else {
-                    $('i.extract-checker[data-ams-extract-name="' + extract + '"]').css('visibility', 'hidden');
+                    checker.css('visibility', 'hidden');
                     MyAMS.core.switchIcon(icon, 'eye', 'eye-slash');
                 }
             };
