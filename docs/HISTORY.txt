@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.0.2
+-----
+ - JS code cleanup
+
 1.0.1
 -----
  - initialize NLTK library in doctests
