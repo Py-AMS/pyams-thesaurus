@@ -1,0 +1,11 @@
+
+!/.installed.cfg
+!/eggs/
+!/bin/
+!/parts/
+!/develop-eggs/
+!/src/pyams_thesaurus/**/__pycache__/
+!/src/pyams_thesaurus.egg-info/
+/.coverage
+/coverage.xml
+/.scannerwork/

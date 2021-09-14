@@ -1,0 +1,3 @@
+[run]
+source = src/pyams_thesaurus
+omit = src/pyams_thesaurus/tests/*,src/pyams_thesaurus/zmi/*
