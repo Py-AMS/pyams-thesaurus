@@ -46,6 +46,23 @@ This package is composed of a set of utility functions, usable into any Pyramid 
     >>> from pyams_utils.registry import handle_site_before_traverse
     >>> handle_site_before_traverse(BeforeTraverseEvent(app, request))
 
+NLTK library must first be initialized before using text indexes:
+
+    >>> import nltk
+    >>> from pyams_utils.context import capture_all
+    >>> with capture_all(nltk.download, 'punkt') as (status1, log1, errors1):
+    ...     pass
+    >>> status1
+    True
+    >>> with capture_all(nltk.download, 'snowball_data') as (status2, log2, errors2):
+    ...     pass
+    >>> status2
+    True
+    >>> with capture_all(nltk.download, 'stopwords') as (status3, log3, errors3):
+    ...     pass
+    >>> status3
+    True
+
 
 Creating a thesaurus from a SKOS RDF file
 -----------------------------------------
