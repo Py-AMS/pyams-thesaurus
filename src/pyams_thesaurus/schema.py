@@ -83,4 +83,4 @@ class ValidatedChoice(Choice):
     """An always validated choice field"""
 
     def _validate(self, value):
-        pass
+        """Don't need to validate!"""
