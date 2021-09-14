@@ -1,6 +1,6 @@
-===================
+=======================
 PyAMS thesaurus package
-===================
+=======================
 
 .. contents::
 
@@ -21,6 +21,12 @@ is available on `Gitlab <https://gitlab.com/pyams>`_ and pushed to `Github
 
 
 What is PyAMS thesaurus?
-====================
+========================
 
-PyAMS thesaurus
+PyAMS_thesaurus is an extension package for PyAMS which can be used to manage thesaurus. A
+thesaurus is a hierarchical structure of terms, which can also handle synonyms and horizontal
+associations between terms. Thesaurus can be used to classify documents, and to search contents
+based on those terms associations.
+
+Thesaurus terms can be entered manually, but also loaded from external sources like XML files
+using SKOS/RDF namespace.

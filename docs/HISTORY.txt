@@ -3,6 +3,7 @@ Changelog
 
 1.0.2
 -----
+ - updated package description
  - JS code cleanup
 
 1.0.1
