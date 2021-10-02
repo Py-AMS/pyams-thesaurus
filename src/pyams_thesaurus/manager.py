@@ -29,4 +29,4 @@ from pyams_utils.factory import factory_config
 class ThesaurusManager(Folder):
     """Thesaurus container"""
 
-    root_menu = FieldProperty(IThesaurusManager['root_menu'])
+    show_home_menu = FieldProperty(IThesaurusManager['show_home_menu'])

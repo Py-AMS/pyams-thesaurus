@@ -154,11 +154,11 @@ class IThesaurusManager(IContainer):
 
     contains(IThesaurus)
 
-    root_menu = Bool(title=_("Access menu from home"),
-                     description=_("If 'yes', a menu will be displayed to get access to "
-                                   "thesaurus from site admin root"),
-                     required=True,
-                     default=False)
+    show_home_menu = Bool(title=_("Access menu from home"),
+                          description=_("If 'yes', a menu will be displayed to get access to "
+                                        "thesaurus from site admin home page"),
+                          required=True,
+                          default=False)
 
 
 class IThesaurusManagerTarget(Interface):

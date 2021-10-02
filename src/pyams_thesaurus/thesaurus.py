@@ -358,7 +358,7 @@ def handle_added_thesaurus(event):
     sm = get_parent(event.newParent, ISiteRoot)  # pylint: disable=invalid-name
     if sm is not None:
         thesaurus = event.object
-        sm.getSiteManager().registerUtility(event.object, IThesaurus,
+        sm.getSiteManager().registerUtility(thesaurus, IThesaurus,
                                             name=thesaurus.name or '')
         thesaurus.init_catalog()
 
@@ -369,7 +369,7 @@ def handle_removed_thesaurus(event):
     sm = get_parent(event.oldParent, ISiteRoot)  # pylint: disable=invalid-name
     if sm is not None:
         thesaurus = event.object
-        sm.getSiteManager().registerUtility(event.object, IThesaurus,
+        sm.getSiteManager().registerUtility(thesaurus, IThesaurus,
                                             name=thesaurus.name or '')
 
 

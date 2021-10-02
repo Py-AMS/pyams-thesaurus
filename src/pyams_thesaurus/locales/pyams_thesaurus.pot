@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2021-09-14 10:59+0200\n"
+"POT-Creation-Date: 2021-09-29 10:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -398,7 +398,7 @@ msgstr ""
 #: ./src/pyams_thesaurus/interfaces/thesaurus.py:158
 msgid ""
 "If 'yes', a menu will be displayed to get access to thesaurus from site admin"
-" root"
+" home page"
 msgstr ""
 
 #: ./src/pyams_thesaurus/interfaces/thesaurus.py:179
@@ -524,22 +524,6 @@ msgstr ""
 msgid "Extract terms"
 msgstr ""
 
-#: ./src/pyams_thesaurus/zmi/tests.py:49
-msgid "Thesaurus terms"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tests.py:77
-msgid "Test thesaurus widgets"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tests.py:87
-msgid "Thesaurus test form"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tests.py:88
-msgid "Thesaurus widget test"
-msgstr ""
-
 #: ./src/pyams_thesaurus/zmi/tree.py:71
 msgid "Terms tree"
 msgstr ""
@@ -584,6 +568,22 @@ msgstr ""
 
 #: ./src/pyams_thesaurus/zmi/tree.py:359
 msgid "Export thesaurus terms"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/test.py:48
+msgid "Thesaurus terms"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/test.py:76
+msgid "Test thesaurus widgets"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/test.py:86
+msgid "Thesaurus test form"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/test.py:87
+msgid "Thesaurus widget test"
 msgstr ""
 
 #: ./src/pyams_thesaurus/zmi/__init__.py:71

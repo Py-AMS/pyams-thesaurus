@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PyAMS_thesaurus 1.0\n"
-"POT-Creation-Date: 2021-09-14 10:59+0200\n"
+"POT-Creation-Date: 2021-09-29 10:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thierry Florac <tflorac@ulthar.net>\n"
 "Language-Team: FRENCH <FR@li.org>\n"
@@ -415,7 +415,7 @@ msgstr "Ajouter un accès depuis l'accueil"
 #: src/pyams_thesaurus/interfaces/thesaurus.py:158
 msgid ""
 "If 'yes', a menu will be displayed to get access to thesaurus from site "
-"admin root"
+"admin home page"
 msgstr ""
 "Si 'oui', un menu d'accès au gestionnaire de thésaurus sera ajouté depuis la "
 "page d'accueil de l'interface d'administration du site"
@@ -541,22 +541,6 @@ msgstr "Rôles de l'extrait"
 msgid "Extract terms"
 msgstr "Termes de l'extrait"
 
-#: src/pyams_thesaurus/zmi/tests.py:49
-msgid "Thesaurus terms"
-msgstr "Termes du thésaurus"
-
-#: src/pyams_thesaurus/zmi/tests.py:77
-msgid "Test thesaurus widgets"
-msgstr "Test du thésaurus"
-
-#: src/pyams_thesaurus/zmi/tests.py:87
-msgid "Thesaurus test form"
-msgstr "Test d'utilisation du thésaurus"
-
-#: src/pyams_thesaurus/zmi/tests.py:88
-msgid "Thesaurus widget test"
-msgstr "Test de widgets du thésaurus"
-
 #: src/pyams_thesaurus/zmi/tree.py:71
 msgid "Terms tree"
 msgstr "Termes"
@@ -602,6 +586,22 @@ msgstr "Export des termes"
 #: src/pyams_thesaurus/zmi/tree.py:359
 msgid "Export thesaurus terms"
 msgstr "Paramètres de l'export"
+
+#: src/pyams_thesaurus/zmi/test.py:48
+msgid "Thesaurus terms"
+msgstr "Termes du thésaurus"
+
+#: src/pyams_thesaurus/zmi/test.py:76
+msgid "Test thesaurus widgets"
+msgstr "Test du thésaurus"
+
+#: src/pyams_thesaurus/zmi/test.py:86
+msgid "Thesaurus test form"
+msgstr "Test d'utilisation du thésaurus"
+
+#: src/pyams_thesaurus/zmi/test.py:87
+msgid "Thesaurus widget test"
+msgstr "Test de widgets du thésaurus"
 
 #: src/pyams_thesaurus/zmi/__init__.py:71
 msgid "Thesaurus container"

@@ -83,7 +83,7 @@ class ThesaurusManagerMenu(NavigationMenuItem):
 
     def __new__(cls, context, request, view, manager):  # pylint: disable=unused-argument
         manager = query_utility(IThesaurusManager)
-        if (manager is None) or not manager.root_menu:
+        if (manager is None) or not manager.show_home_menu:
             return None
         return NavigationMenuItem.__new__(cls)
 
