@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.0.3
+-----
+ - updated thesaurus manager attribute name used to display menu in ZMI home page
+
 1.0.2.1
 -------
  - updated release tag
