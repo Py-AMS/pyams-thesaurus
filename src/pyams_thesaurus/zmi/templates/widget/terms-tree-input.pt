@@ -2,9 +2,11 @@
 	 tal:define="js tales:resource_path('pyams_thesaurus.zmi:thesaurus_js');
 				 css tales:resource_path('pyams_thesaurus.zmi:thesaurus_css');"
 	 data-ams-modules='{
-		"thesaurus": "${js}"
+		"thesaurus": {
+			"src": "${js}",
+			"css": "${css}"
+		}
 	 }'
-	 data-ams-thesaurus-css="${css}"
 	 data-ams-callback="MyAMS.thesaurus.widget.init"
 	 data-ams-reset-callback="MyAMS.thesaurus.widget.updateSelection">
 	<tal:loop repeat="term view.top_terms">

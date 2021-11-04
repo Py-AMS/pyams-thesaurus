@@ -396,7 +396,7 @@ const thesaurus = {
 
 
 if (window.MyAMS) {
-    MyAMS.config.modules.push('pyams_thesaurus');
+    MyAMS.config.modules.push('thesaurus');
     MyAMS.thesaurus = thesaurus;
     console.debug("MyAMS: thesaurus module loaded...");
 }
