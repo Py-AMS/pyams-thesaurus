@@ -127,7 +127,7 @@ const thesaurus = {
                     square.appendTo(div);
                 }
                 const span = $('<span></span>')
-                    .addClass('label')
+                    .addClass('label py-1')
                     .addClass(node.css_class)
                     .attr('data-ams-url', node.view)
                     .attr('data-toggle', 'modal');
@@ -148,7 +148,7 @@ const thesaurus = {
                         if (extension.active) {
                             $('<i></i>')
                                 .addClass(extension.icon)
-                                .addClass('extension hint mx-2 float-right')
+                                .addClass('extension hint mx-2 float-right mouse-pointer')
                                 .addClass('opaque text-primary')
                                 .attr('data-ams-url', extension.view)
                                 .attr('data-toggle', 'modal')
@@ -157,7 +157,7 @@ const thesaurus = {
                         } else {
                             $('<i></i>')
                                 .addClass(extension.icon)
-                                .addClass('extension hint mx-2 float-right')
+                                .addClass('extension hint mx-2 float-right mouse-pointer')
                                 .addClass('text-secondary')
                                 .attr('data-ams-click-handler', 'MyAMS.thesaurus.tree.switchExtension')
                                 .attr('data-ams-extension-name', extension.name)
