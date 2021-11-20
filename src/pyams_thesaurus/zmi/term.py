@@ -21,7 +21,7 @@ from pyams_form.interfaces import DISPLAY_MODE
 from pyams_form.interfaces.form import IAJAXFormRenderer
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
-from pyams_skin.viewlet.actions import ContextAction
+from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_thesaurus.interfaces import MANAGE_THESAURUS_CONTENT_PERMISSION
 from pyams_thesaurus.interfaces.term import IThesaurusTerm
 from pyams_thesaurus.interfaces.thesaurus import IThesaurus
@@ -44,15 +44,11 @@ from pyams_thesaurus import _  # pylint: disable=ungrouped-imports
                 context=IThesaurus, layer=IAdminLayer, view=ThesaurusTermsTreeView,
                 manager=IToolbarViewletManager, weight=10,
                 permission=MANAGE_THESAURUS_CONTENT_PERMISSION)
-class ThesaurusTermAddMenu(ContextAction):
+class ThesaurusTermAddAction(ContextAddAction):
     """Term add menu"""
 
-    status = 'success'
-    icon_class = 'fas fa-plus'
     label = _("Add term")
-
     href = 'add-term.html'
-    modal_target = True
 
 
 @ajax_form_config(name='add-term.html',

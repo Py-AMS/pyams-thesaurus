@@ -33,7 +33,7 @@ from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
 from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
 from pyams_skin.interfaces.viewlet import IContentSuffixViewletManager
-from pyams_skin.viewlet.actions import ContextAction
+from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_table.interfaces import IColumn, IValues
 from pyams_template.template import template_config
 from pyams_thesaurus.interfaces import ADMIN_THESAURUS_PERMISSION, \
@@ -227,15 +227,11 @@ class ThesaurusExtractAddFormRenderer(ContextRequestViewAdapter):
                 context=IThesaurus, layer=IAdminLayer, view=ThesaurusExtractsTable,
                 manager=IToolbarViewletManager, weight=10,
                 permission=ADMIN_THESAURUS_PERMISSION)
-class ThesaurusExtractAddMenu(ContextAction):
-    """Thesaurus extract add menu"""
+class ThesaurusExtractAddAction(ContextAddAction):
+    """Thesaurus extract add action"""
 
-    status = 'success'
-    icon_class = 'fas fa-plus'
     label = _("Add extract")
-
     href = 'add-extract.html'
-    modal_target = True
 
 
 @implementer(IThesaurusExtractAddForm)

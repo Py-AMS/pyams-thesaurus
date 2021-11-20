@@ -26,7 +26,7 @@ from pyams_form.interfaces.form import IAJAXFormRenderer, IAddForm, IDataExtract
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces.base import MANAGE_SYSTEM_PERMISSION, VIEW_SYSTEM_PERMISSION
 from pyams_skin.interfaces.viewlet import IBreadcrumbItem
-from pyams_skin.viewlet.actions import ContextAction
+from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_table.interfaces import IColumn
 from pyams_thesaurus.interfaces.thesaurus import IThesaurus, IThesaurusInfo, IThesaurusManager
 from pyams_thesaurus.zmi import ThesaurusListTable
@@ -106,15 +106,11 @@ class ThesaurusAddFormRenderer(ContextRequestViewAdapter):
                 context=IThesaurusManager, layer=IAdminLayer, view=ThesaurusListTable,
                 manager=IToolbarViewletManager, weight=10,
                 permission=MANAGE_SYSTEM_PERMISSION)
-class ThesaurusAddMenu(ContextAction):
+class ThesaurusAddAction(ContextAddAction):
     """Thesaurus add menu"""
 
-    status = 'success'
-    icon_class = 'fas fa-plus'
     label = _("Add thesaurus")
-
     href = 'add-thesaurus.html'
-    modal_target = True
 
 
 @ajax_form_config(name='add-thesaurus.html',
