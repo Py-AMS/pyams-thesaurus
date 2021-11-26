@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.0
+-----
+ - added thesaurus index type
+ - updated MyAMS module registration
+ - use new context base add action
+
 1.0.3
 -----
  - updated thesaurus manager attribute name used to display menu in ZMI home page
