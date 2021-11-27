@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.1.1
+-----
+ - updated terms election widget CSS classes and styles
+
 1.1.0
 -----
  - added thesaurus index type
