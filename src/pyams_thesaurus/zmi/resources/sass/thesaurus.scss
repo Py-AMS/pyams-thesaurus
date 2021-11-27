@@ -25,6 +25,7 @@
 
 .terms-widget {
   header.active {
-    background-color: var(--primary-light);
+    color: var(--body-bg);
+    background-color: var(--primary-light) !important;
   }
 }
