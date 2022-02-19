@@ -45,7 +45,7 @@ from pyams_security.property import RolePrincipalsFieldProperty
 from pyams_security.security import ProtectedObjectMixin, ProtectedObjectRoles
 from pyams_site.interfaces import ISiteRoot
 from pyams_thesaurus.interfaces import ADMIN_THESAURUS_PERMISSION, \
-    THESAURUS_EXTRACTS_VOCABULARY, THESAURUS_NAMES_VOCABULARY, THESAURUS_VOCABULARY
+    THESAURUS_EXTRACTS_VOCABULARY, THESAURUS_NAMES_VOCABULARY
 from pyams_thesaurus.interfaces.extension import IThesaurusTermExtension
 from pyams_thesaurus.interfaces.loader import IThesaurusLoader
 from pyams_thesaurus.interfaces.term import IThesaurusLoaderTerm, IThesaurusTerm, \
@@ -60,12 +60,11 @@ from pyams_utils.request import check_request
 from pyams_utils.traversing import get_parent
 from pyams_utils.unicode import translate_string
 from pyams_utils.url import absolute_url
-from pyams_utils.vocabulary import vocabulary_config
+from pyams_utils.vocabulary import LocalUtilitiesVocabulary, vocabulary_config
+from pyams_zmi.interfaces import IObjectLabel
 
 
 __docformat__ = 'restructuredtext'
-
-from pyams_zmi.interfaces import IObjectLabel
 
 
 CUSTOM_SEARCH = re.compile(r'\*|\"|\sand\s|\sor\s|\snot\s|\(|\)', re.IGNORECASE)
@@ -509,20 +508,11 @@ def handle_removed_extract(event):
 # Vocabularies
 #
 
-@vocabulary_config(name=THESAURUS_VOCABULARY)
-class ThesaurusVocabulary(UtilityVocabulary):
-    """Thesaurus utilities vocabulary"""
-
-    interface = IThesaurus
-    nameOnly = False
-
-
 @vocabulary_config(name=THESAURUS_NAMES_VOCABULARY)
-class ThesaurusNamesVocabulary(UtilityVocabulary):
+class ThesaurusNamesVocabulary(LocalUtilitiesVocabulary):
     """Thesaurus names utilities vocabulary"""
 
     interface = IThesaurus
-    nameOnly = True
 
 
 @vocabulary_config(name=THESAURUS_EXTRACTS_VOCABULARY)
