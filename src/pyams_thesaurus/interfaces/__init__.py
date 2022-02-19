@@ -42,7 +42,9 @@ THESAURUS_EXTRACT_MANAGER_ROLE = 'pyams_thesaurus.ExtractManager'
 REST_TERMS_SEARCH_ROUTE = 'thesaurus.rest.terms'
 '''Thesaurus terms search route'''
 
+REST_EXTRACTS_GETTER_ROUTE = 'thesaurus.rest.extracts'
+'''Thesaurus extracts getter route'''
 
-THESAURUS_VOCABULARY = 'pyams_thesaurus.thesaurus'
-THESAURUS_NAMES_VOCABULARY = 'pyams_thesaurus.thesaurus.names'
+
+THESAURUS_NAMES_VOCABULARY = 'pyams_thesaurus.thesaurus'
 THESAURUS_EXTRACTS_VOCABULARY = 'pyams_thesaurus.extracts'
