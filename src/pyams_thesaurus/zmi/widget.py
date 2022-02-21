@@ -45,6 +45,7 @@ from pyams_utils.traversing import get_parent
 __docformat__ = 'restructuredtext'
 
 from pyams_thesaurus import _  # pylint: disable=ungrouped-imports
+from pyams_utils.zodb import volatile_property
 
 
 class SimpleThesaurusTerm(SimpleTerm):
@@ -58,10 +59,25 @@ class SimpleThesaurusTerm(SimpleTerm):
             directlyProvides(self, ITitledTokenizedTerm)
 
 
-class ThesaurusWidgetMixin:
+def thesaurus_widget_term_factory(term, widget):
+    """Thesaurus term factory"""
+    if not IThesaurusTerm.providedBy(term):
+        thesaurus = widget.thesaurus
+        if thesaurus is not None:
+            term = thesaurus.terms.get(term)
+    if IThesaurusTerm.providedBy(term):
+        return SimpleThesaurusTerm(term.label, title=term.label)
+    return None
+
+
+class ThesaurusWidgetMixin:  # pylint: disable=no-member
     """Thesaurus base widget mixin"""
 
-    @reify
+    def term_factory(self, value):
+        """Selected term factory"""
+        return thesaurus_widget_term_factory(value, self)
+
+    @volatile_property
     def thesaurus(self):
         """Thesaurus utility getter"""
         content = self.form.get_content()
@@ -77,20 +93,32 @@ class ThesaurusWidgetMixin:
                 thesaurus = query_utility(IThesaurus, name=name)
         return thesaurus
 
+    @property
+    def thesaurus_name(self):
+        """Thesaurus name getter"""
+        return self._thesaurus_name
+
+    @thesaurus_name.setter
+    def thesaurus_name(self, value):
+        """Thesaurus name setter"""
+        if value != self._thesaurus_name:
+            del self.thesaurus
+            self._thesaurus_name = value
+            if self.terms is not None:
+                self.terms = None
+                self.update_terms()
+
     def is_selected(self, term):
         """Check for term selection"""
         return term.token in self.value
 
-
-def thesaurus_widget_term_factory(term, widget):
-    """Thesaurus term factory"""
-    if not IThesaurusTerm.providedBy(term):
-        thesaurus = widget.thesaurus
-        if thesaurus is not None:
-            term = thesaurus.terms.get(term)
-    if IThesaurusTerm.providedBy(term):
-        return SimpleThesaurusTerm(term.label, title=term.label)
-    return None
+    @property
+    def ajax_params(self):
+        """AJAX request params getter"""
+        return json.dumps({
+            'thesaurus_name': self.thesaurus_name,
+            'extract_name': self.extract_name
+        })
 
 
 #
@@ -143,20 +171,8 @@ class ThesaurusTermWidget(ThesaurusWidgetMixin, SelectWidget):
     ajax_url = '/api/thesaurus/terms'
     placeholder = _("No selected term")
 
-    thesaurus_name = FieldProperty(IThesaurusTermWidget['thesaurus_name'])
+    _thesaurus_name = FieldProperty(IThesaurusTermWidget['thesaurus_name'])
     extract_name = FieldProperty(IThesaurusTermWidget['extract_name'])
-
-    @property
-    def ajax_params(self):
-        """AJAX request params getter"""
-        return json.dumps({
-            'thesaurus_name': self.thesaurus_name,
-            'extract_name': self.extract_name
-        })
-
-    def term_factory(self, value):
-        """Selected term factory"""
-        return thesaurus_widget_term_factory(value, self)
 
 
 @adapter_config(required=(IThesaurusTermField, IFormLayer),
@@ -213,20 +229,8 @@ class ThesaurusTermsListWidget(ThesaurusWidgetMixin, SelectWidget):
 
     multiple = 'multiple'
 
-    thesaurus_name = FieldProperty(IThesaurusTermsListWidget['thesaurus_name'])
+    _thesaurus_name = FieldProperty(IThesaurusTermsListWidget['thesaurus_name'])
     extract_name = FieldProperty(IThesaurusTermsListWidget['extract_name'])
-
-    @property
-    def ajax_params(self):
-        """AJAX request params getter"""
-        return json.dumps({
-            'thesaurus_name': self.thesaurus_name,
-            'extract_name': self.extract_name
-        })
-
-    def term_factory(self, value):
-        """Selected term factory"""
-        return thesaurus_widget_term_factory(value, self)
 
 
 @adapter_config(required=(IThesaurusTermsListField, IFormLayer),
