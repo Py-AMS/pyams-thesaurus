@@ -1,6 +1,7 @@
 <div class="row"
 	 tal:define="js tales:resource_path('pyams_thesaurus.zmi:thesaurus_js');
-				 css tales:resource_path('pyams_thesaurus.zmi:thesaurus_css');"
+				 css tales:resource_path('pyams_thesaurus.zmi:thesaurus_css');
+				 fieldname view.field.__name__;"
 	 data-ams-modules='{
 		"thesaurus": {
 			"src": "${js}",
@@ -32,14 +33,14 @@
 								<input tal:condition="published"
 									   type="checkbox"
 									   class="custom-control-input"
-									   id="term_${subterm.label}"
+									   id="term_${fieldname}_${subterm.label}"
 									   name="${view.name}"
 									   value="${subterm.label}"
 									   checked="${'checked' if subterm.label in (view.value or ()) else None}"
 									   disabled="${'disabled' if not published else None}"
 									   data-ams-change-handler="MyAMS.thesaurus.widget.updateSelection" />
 								<label class="${'custom-control-label' if published else 'font-weight-bold mt-2 mb-0'}"
-									   for="term_${subterm.label}">
+									   for="term_${fieldname}_${subterm.label}">
 									${subterm.alt or subterm.label}
 									<tal:if condition="subterm.note">
 										<b tal:define="note tales:html(subterm.note);"
