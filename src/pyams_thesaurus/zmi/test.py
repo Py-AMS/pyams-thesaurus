@@ -89,7 +89,7 @@ class ThesaurusTestForm(AdminEditForm):
     fields = Fields(IThesaurusTest)
     fields['field1'].widget_factory = ThesaurusTermsTreeFieldWidget
 
-    label_css_class = 'control-label col-md-2'
+    label_css_class = 'col-md-2'
     input_css_class = 'col-md-10'
 
     def get_content(self):
