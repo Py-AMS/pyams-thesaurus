@@ -24,6 +24,7 @@ from hypatia.text import ParseError
 from pyramid.httpexceptions import HTTPOk
 
 from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
+from pyams_security.rest import check_cors_origin, set_cors_headers
 from pyams_thesaurus.interfaces import REST_EXTRACTS_GETTER_ROUTE, REST_TERMS_SEARCH_ROUTE
 
 
@@ -79,9 +80,17 @@ extracts_service = Service(name=REST_EXTRACTS_GETTER_ROUTE,
                            description="Thesaurus extracts management")
 
 
+@extracts_service.options(validators=(check_cors_origin, set_cors_headers),
+                          **extracts_service_params)
+def extracts_options(request):  # pylint: disable=unused-argument
+    """Extracts service OPTIONS handler"""
+    return ''
+
+
 @extracts_service.get(permission=VIEW_SYSTEM_PERMISSION,
                       schema=ThesaurusExtractsGetterSchema(),
-                      validators=(colander_querystring_validator,),
+                      validators=(check_cors_origin, colander_querystring_validator,
+                                  set_cors_headers),
                       **extracts_service_params)
 def get_extracts(request):
     """Get thesaurus extracts list"""
@@ -155,9 +164,17 @@ terms_service = Service(name=REST_TERMS_SEARCH_ROUTE,
                         description="Thesaurus terms management")
 
 
+@terms_service.options(validators=(check_cors_origin, set_cors_headers),
+                       **terms_service_params)
+def terms_options(request):  # pylint: disable=unused-argument
+    """Terms service OPTIONS handler"""
+    return ''
+
+
 @terms_service.get(permission=VIEW_SYSTEM_PERMISSION,
                    schema=ThesaurusTermsSearchQuerySchema(),
-                   validators=(colander_querystring_validator,),
+                   validators=(check_cors_origin, colander_querystring_validator,
+                               set_cors_headers),
                    **terms_service_params)
 def get_terms(request):
     """Returns list of terms matching given query"""
