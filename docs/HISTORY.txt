@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.2.2
+-----
+ - added CORS validators and OPTIONS handler to REST services
+
 1.2.1
 -----
  - updated internal properties of thesaurus widget base class
