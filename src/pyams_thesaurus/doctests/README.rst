@@ -491,6 +491,31 @@ providing IThesaurusExporter interface:
     b'<?xml version=\'1.0\' encoding=\'UTF-8\' standalone=\'yes\'?>\n<Results xmlns="http://www.inmagic.com/webpublisher/query" productTitle='
 
 
+Removing terms from thesaurus
+-----------------------------
+
+You can always remove a term from a thesaurus, but only if he doesn't have any specific term
+and if it is not used as index key into a catalog:
+
+    >>> term = thesaurus.terms.get('Base de loisir')
+    >>> term.is_deletable()
+    False
+
+    >>> thesaurus.remove_term(term)
+    Traceback (most recent call last):
+    ...
+    pyams_thesaurus.interfaces.ThesaurusTermDeleteException: Term can't be deleted
+
+    >>> 'Effet direct' in thesaurus.terms
+    True
+    >>> term = thesaurus.terms.get('Effet direct')
+    >>> term.is_deletable()
+    True
+    >>> thesaurus.remove_term(term)
+    >>> 'Effet direct' in thesaurus.terms
+    False
+
+
 Tests cleanup:
 
     >>> tearDown()

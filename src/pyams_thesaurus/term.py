@@ -17,13 +17,14 @@ This module defines main thesaurus terms class.
 
 from datetime import datetime
 
+from hypatia.interfaces import ICatalog
 from persistent import Persistent
 from pyramid.events import subscriber
 from zope.container.contained import Contained
 from zope.interface import alsoProvides, noLongerProvides
 from zope.interface.interfaces import ComponentLookupError
-from zope.lifecycleevent import IObjectAddedEvent, IObjectModifiedEvent, IObjectMovedEvent, \
-    IObjectRemovedEvent
+from zope.intid import IIntIds
+from zope.lifecycleevent import IObjectAddedEvent, IObjectModifiedEvent, IObjectMovedEvent
 from zope.schema.fieldproperty import FieldProperty
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from zope.traversing.interfaces import ITraversable
@@ -33,13 +34,14 @@ from pyams_security.interfaces import IViewContextPermissionChecker
 from pyams_thesaurus.interfaces import MANAGE_THESAURUS_CONTENT_PERMISSION
 from pyams_thesaurus.interfaces.extension import IThesaurusTermExtension, \
     THESAURUS_EXTENSIONS_VOCABULARY
+from pyams_thesaurus.interfaces.index import IThesaurusTermIndexBase
 from pyams_thesaurus.interfaces.term import IThesaurusLoaderTerm, IThesaurusTerm, \
     IThesaurusTermsContainer, STATUS_PUBLISHED
 from pyams_thesaurus.interfaces.thesaurus import IThesaurus, IThesaurusExtract
 from pyams_utils.adapter import ContextAdapter, adapter_config
 from pyams_utils.factory import factory_config
 from pyams_utils.interfaces.tree import INode
-from pyams_utils.registry import get_pyramid_registry, query_utility
+from pyams_utils.registry import get_pyramid_registry, get_utility, query_utility
 from pyams_utils.request import check_request
 from pyams_utils.timezone import tztime
 from pyams_utils.traversing import get_parent
@@ -222,6 +224,21 @@ class ThesaurusTerm(Persistent, Contained):
             # Extracts selection also applies to term synonyms...
             for term in self.used_for or ():
                 term.extracts = self.extracts
+
+    def is_deletable(self):
+        """Check if thesaurus term can be deleted"""
+        if self.specifics or self.associations or self.used_for:
+            return False
+        catalog = query_utility(ICatalog)
+        if catalog is not None:
+            intids = get_utility(IIntIds)
+            term_id = intids.register(self)
+            for index in catalog.values():
+                if not IThesaurusTermIndexBase.providedBy(index):
+                    continue
+                if term_id in index.unique_values():
+                    return False
+        return True
 
     def add_extract(self, extract, check=True):
         """Add term to given extract"""
@@ -442,16 +459,6 @@ def handle_modified_term(event):
         thesaurus = parent.__parent__
         if IThesaurus.providedBy(thesaurus):  # pylint: disable=no-value-for-parameter
             reindex_object(event.object, thesaurus.catalog)
-
-
-@subscriber(IObjectRemovedEvent, context_selector=IThesaurusTerm)
-def handle_removed_term(event):
-    """Un-index term into inner catalog"""
-    parent = event.oldParent
-    if IThesaurusTermsContainer.providedBy(parent):  # pylint: disable=no-value-for-parameter
-        thesaurus = parent.__parent__
-        if IThesaurus.providedBy(thesaurus):  # pylint: disable=no-value-for-parameter
-            unindex_object(event.object, thesaurus.catalog)
 
 
 @adapter_config(required=IThesaurusTerm, provides=INode)

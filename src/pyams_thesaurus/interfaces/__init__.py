@@ -48,3 +48,7 @@ REST_EXTRACTS_GETTER_ROUTE = 'thesaurus.rest.extracts'
 
 THESAURUS_NAMES_VOCABULARY = 'pyams_thesaurus.thesaurus'
 THESAURUS_EXTRACTS_VOCABULARY = 'pyams_thesaurus.extracts'
+
+
+class ThesaurusTermDeleteException(Exception):
+    """Thesaurus term delete exception"""

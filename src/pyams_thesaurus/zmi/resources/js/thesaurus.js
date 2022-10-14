@@ -296,6 +296,13 @@ const thesaurus = {
         },
 
         /**
+         * Remove specified term from tree
+         */
+        removeTerm: function(form, options) {
+            $(`span.term:withtext("${options.term}")`).parents('li').first().remove();
+        },
+
+        /**
          * Switch term extension
          *
          * @param evt: source event

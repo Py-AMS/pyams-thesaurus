@@ -23,25 +23,21 @@ __docformat__ = 'restructuredtext'
 from pyams_thesaurus import _
 
 
-class IThesaurusTermFieldIndex(Interface):
+class IThesaurusTermIndexBase(Interface):
+    """Thesaurus term base index interface"""
+
+    include_parents = Bool(title=_("Include term parents into index values"),
+                           default=False,
+                           required=False)
+
+    include_synonyms = Bool(title=_("Include term synonyms into index values"),
+                            default=False,
+                            required=False)
+
+
+class IThesaurusTermFieldIndex(IThesaurusTermIndexBase):
     """Thesaurus term field index interface"""
 
-    include_parents = Bool(title=_("Include term parents into index values"),
-                           default=False,
-                           required=False)
 
-    include_synonyms = Bool(title=_("Include term synonyms into index values"),
-                            default=False,
-                            required=False)
-
-
-class IThesaurusTermsListFieldIndex(Interface):
+class IThesaurusTermsListFieldIndex(IThesaurusTermIndexBase):
     """Thesaurus terms list field index interface"""
-
-    include_parents = Bool(title=_("Include term parents into index values"),
-                           default=False,
-                           required=False)
-
-    include_synonyms = Bool(title=_("Include term synonyms into index values"),
-                            default=False,
-                            required=False)

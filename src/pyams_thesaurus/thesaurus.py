@@ -38,14 +38,14 @@ from zope.traversing.interfaces import ITraversable
 from pyams_catalog.index import FieldIndexWithInterface, TextIndexWithInterface
 from pyams_catalog.nltk import NltkStemmedTextProcessor
 from pyams_catalog.query import CatalogResultSet, or_
-from pyams_catalog.utils import index_object
+from pyams_catalog.utils import index_object, unindex_object
 from pyams_security.interfaces import IDefaultProtectionPolicy, IRolesPolicy, \
     IViewContextPermissionChecker
 from pyams_security.property import RolePrincipalsFieldProperty
 from pyams_security.security import ProtectedObjectMixin, ProtectedObjectRoles
 from pyams_site.interfaces import ISiteRoot
 from pyams_thesaurus.interfaces import ADMIN_THESAURUS_PERMISSION, \
-    THESAURUS_EXTRACTS_VOCABULARY, THESAURUS_NAMES_VOCABULARY
+    THESAURUS_EXTRACTS_VOCABULARY, THESAURUS_NAMES_VOCABULARY, ThesaurusTermDeleteException
 from pyams_thesaurus.interfaces.extension import IThesaurusTermExtension
 from pyams_thesaurus.interfaces.loader import IThesaurusLoader
 from pyams_thesaurus.interfaces.term import IThesaurusLoaderTerm, IThesaurusTerm, \
@@ -65,6 +65,8 @@ from pyams_zmi.interfaces import IObjectLabel
 
 
 __docformat__ = 'restructuredtext'
+
+from pyams_thesaurus import _
 
 
 CUSTOM_SEARCH = re.compile(r'\*|\"|\sand\s|\sor\s|\snot\s|\(|\)', re.IGNORECASE)
@@ -224,6 +226,27 @@ class Thesaurus(ProtectedObjectMixin, Persistent, Contained):
             return self.top_terms
         return [term for term in self.top_terms if extract in term.extracts]
 
+    def remove_term(self, term):
+        """Remove specified term from thesaurus"""
+        if term.label not in self.terms:
+            raise ThesaurusTermDeleteException(_("Term not found"))
+        if not term.is_deletable():
+            raise ThesaurusTermDeleteException(_("Term can't be deleted"))
+        unindex_object(term, self.catalog)
+        # check generic
+        generic = term.generic
+        if generic is not None:
+            specifics = generic.specifics
+            specifics.remove(term)
+            generic.specifics = specifics
+        # check top terms
+        terms = self.top_terms
+        if term in terms:
+            terms.remove(term)
+            self.top_terms = terms
+        # delete term
+        del self.terms[term.label]
+
     def clear(self):
         """Remove all terms from thesaurus"""
         self.terms.clear()
@@ -368,8 +391,8 @@ def handle_removed_thesaurus(event):
     sm = get_parent(event.oldParent, ISiteRoot)  # pylint: disable=invalid-name
     if sm is not None:
         thesaurus = event.object
-        sm.getSiteManager().registerUtility(thesaurus, IThesaurus,
-                                            name=thesaurus.name or '')
+        sm.getSiteManager().unregisterUtility(thesaurus, IThesaurus,
+                                              name=thesaurus.name or '')
 
 
 @adapter_config(required=IThesaurus,

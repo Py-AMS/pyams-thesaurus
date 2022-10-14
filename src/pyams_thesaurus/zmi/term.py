@@ -14,13 +14,16 @@
 
 This module provides all terms related management components.
 """
+from zope.interface import alsoProvides
 
 from pyams_form.ajax import ajax_form_config
+from pyams_form.button import Buttons, handler
 from pyams_form.field import Fields
 from pyams_form.interfaces import DISPLAY_MODE
 from pyams_form.interfaces.form import IAJAXFormRenderer
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
+from pyams_skin.schema.button import ActionButton
 from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_thesaurus.interfaces import MANAGE_THESAURUS_CONTENT_PERMISSION
 from pyams_thesaurus.interfaces.term import IThesaurusTerm
@@ -28,10 +31,13 @@ from pyams_thesaurus.interfaces.thesaurus import IThesaurus
 from pyams_thesaurus.zmi.tree import ThesaurusTermsTreeView
 from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
 from pyams_utils.factory import get_object_factory
+from pyams_utils.interfaces.data import IObjectData
 from pyams_utils.traversing import get_parent
 from pyams_viewlet.viewlet import viewlet_config
 from pyams_zmi.form import AdminModalAddForm, AdminModalEditForm
 from pyams_zmi.interfaces import IAdminLayer
+from pyams_zmi.interfaces.form import IModalDisplayFormButtons, IModalEditFormButtons, \
+    check_submit_button
 from pyams_zmi.interfaces.viewlet import IToolbarViewletManager
 
 
@@ -110,16 +116,30 @@ class ThesaurusTermAddFormRenderer(ContextRequestViewAdapter):
         """JSON form renderer"""
         if changes is None:
             return None
-        label = changes.label.replace("'", "&#039;")
+        term = IThesaurusTerm(changes)
+        label = term.label.replace("'", "&#039;")
+        if term.generic is None:
+            return {
+                'status': 'reload'
+            }
         return {
             'status': 'success',
             'callbacks': [{
                 'callback': 'MyAMS.thesaurus.tree.findTerm',
                 'options': {
+                    'action': 'add',
                     'term': label
                 }
             }]
         }
+
+
+class IThesaurusTermEditFormButtons(IModalEditFormButtons):
+    """Thesaurus term edit form buttons interface"""
+
+    delete = ActionButton(name='delete',
+                          title=_("Delete term"),
+                          condition=check_submit_button)
 
 
 @ajax_form_config(name='properties.html',
@@ -139,6 +159,17 @@ class ThesaurusTermEditForm(AdminModalEditForm):
 
     legend = _("Thesaurus term properties")
 
+    @property
+    def buttons(self):
+        """Buttons getter"""
+        if self.mode == DISPLAY_MODE:
+            return Buttons(IModalDisplayFormButtons)
+        if self.context.is_deletable():
+            buttons = ('delete', 'apply', 'close')
+        else:
+            buttons = ('apply', 'close')
+        return Buttons(IThesaurusTermEditFormButtons).select(*buttons)
+
     fields = Fields(IThesaurusTerm).select('label', 'alt', 'definition', 'note', 'generic',
                                            'order', 'specifics', 'associations', 'usage',
                                            'used_for', 'extracts', 'extensions', 'status',
@@ -147,7 +178,20 @@ class ThesaurusTermEditForm(AdminModalEditForm):
     generic_changed = False
     usage_changed = False
 
+    def update_actions(self):
+        """Actions update"""
+        super().update_actions()
+        delete_action = self.actions.get('delete')
+        if delete_action is not None:
+            delete_action.add_class('btn-danger mr-auto')
+            delete_action.add_class('submit')
+            delete_action.object_data = {
+                'ams-click-handler': 'MyAMS.form.submitForm'
+            }
+            alsoProvides(delete_action, IObjectData)
+
     def update_widgets(self, prefix=None):
+        """Widgets update"""
         super().update_widgets(prefix)
         thesaurus = get_parent(self.context, IThesaurus)
         for name in ('generic', 'specifics', 'associations', 'usage', 'used_for'):
@@ -157,7 +201,25 @@ class ThesaurusTermEditForm(AdminModalEditForm):
             if name in self.widgets:
                 self.widgets[name].mode = DISPLAY_MODE
 
+    @handler(IThesaurusTermEditFormButtons['delete'])
+    def handle_delete(self, action):
+        """Delete term"""
+        term = IThesaurusTerm(self.context)
+        thesaurus = get_parent(term, IThesaurus)
+        if thesaurus is not None:
+            thesaurus.remove_term(term)
+            self.finished_state.update({
+                'action': action,
+                'changes': term
+            })
+
+    @handler(IThesaurusTermEditFormButtons['apply'])
+    def handle_apply(self, action):
+        """Apply action button handler"""
+        super().handle_apply(self, action)
+
     def apply_changes(self, data):  # pylint: disable=too-many-branches
+        """Apply term changes"""
         term = self.context
         thesaurus = get_parent(term, IThesaurus)
         old_label = term.label
@@ -227,10 +289,34 @@ class ThesaurusTermEditForm(AdminModalEditForm):
         return changes
 
 
-@adapter_config(required=(IThesaurusTerm, IAdminLayer, ThesaurusTermEditForm),
+@adapter_config(name='delete',
+                required=(IThesaurusTerm, IAdminLayer, ThesaurusTermEditForm),
+                provides=IAJAXFormRenderer)
+class ThesaurusTermDeleteFormRenderer(ContextRequestViewAdapter):
+    """Thesaurus term edit form delete renderer"""
+
+    def render(self, changes):
+        """AJAX edit form renderer on delete action"""
+        if changes is None:
+            return None
+        term = self.context
+        label = (term.generic or term).label.replace("'", "&#039;")
+        translate = self.request.localizer.translate
+        return {
+            'status': 'success',
+            'message': translate(_("Thesaurus term was deleted successfully.")),
+            'callback': 'MyAMS.thesaurus.tree.removeTerm',
+            'options': {
+                'term': label
+            }
+        }
+
+
+@adapter_config(name='apply',
+                required=(IThesaurusTerm, IAdminLayer, ThesaurusTermEditForm),
                 provides=IAJAXFormRenderer)
 class ThesaurusTermEditFormRenderer(ContextRequestViewAdapter):
-    """Thesaurus term edit form renderer"""
+    """Thesaurus term edit form renderer on apply action"""
 
     def render(self, changes):
         """AJAX edit form renderer"""

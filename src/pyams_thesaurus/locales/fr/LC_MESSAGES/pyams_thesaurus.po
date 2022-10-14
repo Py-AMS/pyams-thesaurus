@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PyAMS_thesaurus 1.0\n"
-"POT-Creation-Date: 2021-09-29 10:23+0200\n"
+"POT-Creation-Date: 2022-10-15 01:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thierry Florac <tflorac@ulthar.net>\n"
 "Language-Team: FRENCH <FR@li.org>\n"
@@ -11,31 +11,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Lingua 4.14\n"
 
-#: src/pyams_thesaurus/include.py:42
+#: src/pyams_thesaurus/thesaurus.py:232
+msgid "Term not found"
+msgstr "Ce terme est introuvable."
+
+#: src/pyams_thesaurus/thesaurus.py:234
+msgid "Term can't be deleted"
+msgstr "Ce terme ne peut pas être supprimé."
+
+#: src/pyams_thesaurus/include.py:43
 msgid "Create thesaurus"
 msgstr "Créer un thésaurus"
 
-#: src/pyams_thesaurus/include.py:46
+#: src/pyams_thesaurus/include.py:47
 msgid "Manage thesaurus properties"
 msgstr "Gérer les propriétés d'un thésaurus"
 
-#: src/pyams_thesaurus/include.py:50
+#: src/pyams_thesaurus/include.py:51
 msgid "Manage thesaurus content"
 msgstr "Gérer le contenu d'un thésaurus"
 
-#: src/pyams_thesaurus/include.py:54
+#: src/pyams_thesaurus/include.py:55
 msgid "Manage thesaurus extract"
 msgstr "Gérer les extraits d'un thésaurus"
 
-#: src/pyams_thesaurus/include.py:68
+#: src/pyams_thesaurus/include.py:69
 msgid "Thesaurus administrator (role)"
 msgstr "Administrateur de thésaurus (rôle)"
 
-#: src/pyams_thesaurus/include.py:81
+#: src/pyams_thesaurus/include.py:82
 msgid "Thesaurus content manager (role)"
 msgstr "Gestionnaire de thésaurus (rôle)"
 
-#: src/pyams_thesaurus/include.py:94
+#: src/pyams_thesaurus/include.py:95
 msgid "Thesaurus extract manager (role)"
 msgstr "Gestionnaire d'extrait de thésaurus (rôle)"
 
@@ -51,9 +59,17 @@ msgstr "Contenu HTML"
 msgid "HTML description"
 msgstr "Texte enrichi"
 
+#: src/pyams_thesaurus/interfaces/index.py:29
+msgid "Include term parents into index values"
+msgstr "Inclure les termes parents dans les valeurs de l'index"
+
+#: src/pyams_thesaurus/interfaces/index.py:33
+msgid "Include term synonyms into index values"
+msgstr "Inclure les synonymes dans les valeurs de l'index"
+
 #: src/pyams_thesaurus/interfaces/loader.py:40
 #: src/pyams_thesaurus/interfaces/thesaurus.py:71
-#: src/pyams_thesaurus/interfaces/thesaurus.py:227
+#: src/pyams_thesaurus/interfaces/thesaurus.py:230
 msgid "Thesaurus name"
 msgstr "Nom du thésaurus"
 
@@ -155,6 +171,143 @@ msgstr ""
 "Si vous souhaitez n'exporter qu'un extrait du thésaurus, vous pouvez le "
 "sélectionner ici"
 
+#: src/pyams_thesaurus/interfaces/extension.py:40
+msgid "Extension name"
+msgstr "Nom de l'extension"
+
+#: src/pyams_thesaurus/interfaces/extension.py:41
+msgid "User name given to the extension"
+msgstr "Nom donné à l'extension"
+
+#: src/pyams_thesaurus/interfaces/extension.py:44
+msgid "Extension marker interface"
+msgstr "Interface de marquage"
+
+#: src/pyams_thesaurus/interfaces/extension.py:46
+msgid "Extension target view name"
+msgstr "Vue cible"
+
+#: src/pyams_thesaurus/interfaces/extension.py:49
+msgid "Extension icon CSS class"
+msgstr "Classe CSS"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:42
+msgid "Title"
+msgstr "Titre"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:43
+msgid "Long title for this thesaurus"
+msgstr "Libellé long de ce thésaurus"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:46
+msgid "Subject"
+msgstr "Contenu"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:49
+#: src/pyams_thesaurus/interfaces/thesaurus.py:185
+msgid "Description"
+msgstr "Description"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:52
+msgid "Language"
+msgstr "Langue"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:53
+msgid "Thesaurus's language"
+msgstr "Langue des termes du thésaurus"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:58
+msgid "Creator"
+msgstr "Créateur"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:61
+msgid "Publisher"
+msgstr "Éditeur"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:64
+#: src/pyams_thesaurus/interfaces/term.py:150
+msgid "Creation date"
+msgstr "Date de création"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:76
+msgid "Thesaurus top-terms"
+msgstr "Termes de premier niveau"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:77
+msgid "List of top thesaurus terms, placed at first level"
+msgstr "Liste des termes de premier niveau du thésaurus"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:81
+msgid "Thesaurus catalog"
+msgstr "Catalogue"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:82
+msgid "Inner thesaurus catalog, used for full-text indexing"
+msgstr "Catalogue interne du thésaurus utilisé pour la recherche full-text"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:137
+msgid "Administrators"
+msgstr "Administrateurs"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:138
+msgid "List of thesaurus's administrators"
+msgstr ""
+"Les administrateurs sont autorisés à gérer toutes les propriétés et le "
+"contenu d'un thésaurus"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:142
+msgid "Contents managers"
+msgstr "Contributeurs"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:143
+msgid "List of thesaurus's contents contributors"
+msgstr ""
+"Les contributeurs sont habilités à gérer uniquement les termes d'un thésaurus"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:160
+msgid "Access menu from home"
+msgstr "Ajouter un accès depuis l'accueil"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:161
+msgid ""
+"If 'yes', a menu will be displayed to get access to thesaurus from site "
+"admin home page"
+msgstr ""
+"Si 'oui', un menu d'accès au gestionnaire de thésaurus sera ajouté depuis la "
+"page d'accueil de l'interface d'administration du site"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:182
+msgid "Extract name"
+msgstr "Nom de l'extrait"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:188
+msgid "Abbreviation"
+msgstr "Abréviation"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:189
+msgid "Short abbreviation used to distinguish the extract"
+msgstr "Courte abréviation utilisée pour identifier l'extrait"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:193
+msgid "Extract color"
+msgstr "Couleur"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:194
+msgid "A color associated with this extract"
+msgstr "Couleur associée à cet extrait"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:210
+msgid "Extract managers"
+msgstr "Gestionnaires"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:211
+msgid "List of principals which can manage extract contents"
+msgstr "Liste de mandataires autorisés à gérer le contenu de l'extrait"
+
+#: src/pyams_thesaurus/interfaces/thesaurus.py:234
+msgid "Thesaurus extract"
+msgstr "Nom de l'extrait"
+
 #: src/pyams_thesaurus/interfaces/term.py:42
 msgid "Candidate"
 msgstr "Candidat"
@@ -167,7 +320,8 @@ msgstr "Publié"
 msgid "Archived"
 msgstr "Archivé"
 
-#: src/pyams_thesaurus/interfaces/term.py:57 src/pyams_thesaurus/api/rest.py:58
+#: src/pyams_thesaurus/interfaces/term.py:57
+#: src/pyams_thesaurus/api/rest.py:138
 msgid "Term label"
 msgstr "Libellé"
 
@@ -311,235 +465,119 @@ msgid "Parent at level 1 of the current term, or None"
 msgstr ""
 "Parent de niveau 1 de ce terme ; non renseigné dans le cas des synonymes"
 
-#: src/pyams_thesaurus/interfaces/term.py:150
-#: src/pyams_thesaurus/interfaces/thesaurus.py:64
-msgid "Creation date"
-msgstr "Date de création"
-
 #: src/pyams_thesaurus/interfaces/term.py:153
 msgid "Modification date"
 msgstr "Date de modification"
 
-#: src/pyams_thesaurus/interfaces/extension.py:40
-msgid "Extension name"
-msgstr "Nom de l'extension"
+#: src/pyams_thesaurus/zmi/__init__.py:71
+msgid "Thesaurus container"
+msgstr "Gestionnaire de thésaurus"
 
-#: src/pyams_thesaurus/interfaces/extension.py:41
-msgid "User name given to the extension"
-msgstr "Nom donné à l'extension"
+#: src/pyams_thesaurus/zmi/__init__.py:81
+msgid "Thesaurus"
+msgstr "Thésaurus"
 
-#: src/pyams_thesaurus/interfaces/extension.py:44
-msgid "Extension marker interface"
-msgstr "Interface de marquage"
+#: src/pyams_thesaurus/zmi/__init__.py:135
+#: src/pyams_thesaurus/zmi/__init__.py:179
+msgid "Thesaurus list"
+msgstr "Liste des thésaurus"
 
-#: src/pyams_thesaurus/interfaces/extension.py:46
-msgid "Extension target view name"
-msgstr "Vue cible"
+#: src/pyams_thesaurus/zmi/__init__.py:181
+msgid "List of thesaurus"
+msgstr "Liste des thésaurus"
 
-#: src/pyams_thesaurus/interfaces/extension.py:49
-msgid "Extension icon CSS class"
-msgstr "Classe CSS"
+#: src/pyams_thesaurus/zmi/__init__.py:210
+#: src/pyams_thesaurus/zmi/thesaurus.py:201
+msgid "Properties"
+msgstr "Propriétés"
 
-#: src/pyams_thesaurus/interfaces/thesaurus.py:42
-msgid "Title"
-msgstr "Titre"
+#: src/pyams_thesaurus/zmi/__init__.py:226
+msgid "Thesaurus manager properties"
+msgstr "Propriétés du gestionnaire de thésaurus"
 
-#: src/pyams_thesaurus/interfaces/thesaurus.py:43
-msgid "Long title for this thesaurus"
-msgstr "Libellé long de ce thésaurus"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:46
-msgid "Subject"
-msgstr "Contenu"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:49
-#: src/pyams_thesaurus/interfaces/thesaurus.py:182
-msgid "Description"
-msgstr "Description"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:52
-msgid "Language"
-msgstr "Langue"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:53
-msgid "Thesaurus's language"
-msgstr "Langue des termes du thésaurus"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:58
-msgid "Creator"
-msgstr "Créateur"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:61
-msgid "Publisher"
-msgstr "Éditeur"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:76
-msgid "Thesaurus top-terms"
-msgstr "Termes de premier niveau"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:77
-msgid "List of top thesaurus terms, placed at first level"
-msgstr "Liste des termes de premier niveau du thésaurus"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:81
-msgid "Thesaurus catalog"
-msgstr "Catalogue"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:82
-msgid "Inner thesaurus catalog, used for full-text indexing"
-msgstr "Catalogue interne du thésaurus utilisé pour la recherche full-text"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:134
-msgid "Administrators"
-msgstr "Administrateurs"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:135
-msgid "List of thesaurus's administrators"
-msgstr ""
-"Les administrateurs sont autorisés à gérer toutes les propriétés et le "
-"contenu d'un thésaurus"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:139
-msgid "Contents managers"
-msgstr "Contributeurs"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:140
-msgid "List of thesaurus's contents contributors"
-msgstr ""
-"Les contributeurs sont habilités à gérer uniquement les termes d'un thésaurus"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:157
-msgid "Access menu from home"
-msgstr "Ajouter un accès depuis l'accueil"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:158
-msgid ""
-"If 'yes', a menu will be displayed to get access to thesaurus from site "
-"admin home page"
-msgstr ""
-"Si 'oui', un menu d'accès au gestionnaire de thésaurus sera ajouté depuis la "
-"page d'accueil de l'interface d'administration du site"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:179
-msgid "Extract name"
-msgstr "Nom de l'extrait"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:185
-msgid "Abbreviation"
-msgstr "Abréviation"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:186
-msgid "Short abbreviation used to distinguish the extract"
-msgstr "Courte abréviation utilisée pour identifier l'extrait"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:190
-msgid "Extract color"
-msgstr "Couleur"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:191
-msgid "A color associated with this extract"
-msgstr "Couleur associée à cet extrait"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:207
-msgid "Extract managers"
-msgstr "Gestionnaires"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:208
-msgid "List of principals which can manage extract contents"
-msgstr "Liste de mandataires autorisés à gérer le contenu de l'extrait"
-
-#: src/pyams_thesaurus/interfaces/thesaurus.py:231
-msgid "Thesaurus extract"
-msgstr "Nom de l'extrait"
-
-#: src/pyams_thesaurus/api/rest.py:45
-msgid "Selected thesaurus name"
-msgstr "Nom du thésaurus"
-
-#: src/pyams_thesaurus/api/rest.py:47
-msgid "Selected extract name"
-msgstr "Nom de l'extrait"
-
-#: src/pyams_thesaurus/api/rest.py:50
-msgid "Terms search string"
-msgstr "Texte de recherche des termes"
-
-#: src/pyams_thesaurus/api/rest.py:56
-msgid "Term ID"
-msgstr "Identifiant du terme"
-
-#: src/pyams_thesaurus/api/rest.py:68
-msgid "Results list"
-msgstr "Liste de résultats"
-
-#: src/pyams_thesaurus/api/rest.py:72
-msgid "Search results"
-msgstr "Résultats de la recherche"
-
-#: src/pyams_thesaurus/zmi/widget.py:144 src/pyams_thesaurus/zmi/widget.py:212
-msgid "No selected term"
-msgstr "Aucun terme sélectionné"
-
-#: src/pyams_thesaurus/zmi/extract.py:106
-msgid "Thesaurus extracts"
-msgstr "Extraits du thésaurus"
-
-#: src/pyams_thesaurus/zmi/extract.py:125
-msgid "Display extract terms"
-msgstr "Afficher les termes de l'extrait"
-
-#: src/pyams_thesaurus/zmi/extract.py:158
-msgid "Show/hide extract"
-msgstr "Afficher/masquer l'extrait"
-
-#: src/pyams_thesaurus/zmi/extract.py:204
-msgid "Another extract is already registered with this name!"
-msgstr "Un autre extrait est déjà enregistré sous ce nom !"
-
-#: src/pyams_thesaurus/zmi/extract.py:235
-msgid "Add extract"
-msgstr "Ajouter un extrait"
-
-#: src/pyams_thesaurus/zmi/extract.py:251
-#: src/pyams_thesaurus/zmi/extract.py:342
-#: src/pyams_thesaurus/zmi/extract.py:413 src/pyams_thesaurus/zmi/tree.py:266
-#: src/pyams_thesaurus/zmi/tree.py:356 src/pyams_thesaurus/zmi/term.py:69
-#: src/pyams_thesaurus/zmi/term.py:141 src/pyams_thesaurus/zmi/extension.py:37
-#: src/pyams_thesaurus/zmi/thesaurus.py:218
+#: src/pyams_thesaurus/zmi/extension.py:37 src/pyams_thesaurus/zmi/term.py:71
+#: src/pyams_thesaurus/zmi/term.py:157 src/pyams_thesaurus/zmi/thesaurus.py:214
+#: src/pyams_thesaurus/zmi/tree.py:266 src/pyams_thesaurus/zmi/tree.py:356
+#: src/pyams_thesaurus/zmi/extract.py:247
+#: src/pyams_thesaurus/zmi/extract.py:338
+#: src/pyams_thesaurus/zmi/extract.py:409
 #, python-format
 msgid "Thesaurus: {}"
 msgstr "Thésaurus : {}"
 
-#: src/pyams_thesaurus/zmi/extract.py:253
-msgid "New thesaurus extract"
-msgstr "Nouvel extrait du thésaurus"
-
-#: src/pyams_thesaurus/zmi/extract.py:262
-msgid "New extract properties"
-msgstr "Propriétés du nouvel extrait"
-
-#: src/pyams_thesaurus/zmi/extract.py:282
-#: src/pyams_thesaurus/zmi/extract.py:297
-msgid "Clone thesaurus extract"
-msgstr "Dupliquer l'extrait"
-
-#: src/pyams_thesaurus/zmi/extract.py:344
-#: src/pyams_thesaurus/zmi/extract.py:415
+#: src/pyams_thesaurus/zmi/extension.py:38 src/pyams_thesaurus/zmi/term.py:158
 #, python-format
-msgid "Thesaurus extract: {}"
-msgstr "Extrait du thésaurus : {}"
+msgid "Term: {}"
+msgstr "Terme : {}"
 
-#: src/pyams_thesaurus/zmi/extract.py:346
-msgid "Extract properties"
-msgstr "Propriétés de l'extrait"
+#: src/pyams_thesaurus/zmi/term.py:56
+msgid "Add term"
+msgstr "Ajouter un terme"
 
-#: src/pyams_thesaurus/zmi/extract.py:385
-msgid "Extract roles"
-msgstr "Rôles de l'extrait"
+#: src/pyams_thesaurus/zmi/term.py:72
+msgid "Create new term"
+msgstr "Nouveau terme"
 
-#: src/pyams_thesaurus/zmi/extract.py:417
-msgid "Extract terms"
-msgstr "Termes de l'extrait"
+#: src/pyams_thesaurus/zmi/term.py:74
+msgid "New term properties"
+msgstr "Propriétés du nouveau terme"
+
+#: src/pyams_thesaurus/zmi/term.py:141
+msgid "Delete term"
+msgstr "Supprimer le terme"
+
+#: src/pyams_thesaurus/zmi/term.py:160
+msgid "Thesaurus term properties"
+msgstr "Propriétés d'un terme"
+
+#: src/pyams_thesaurus/zmi/term.py:307
+msgid "Thesaurus term was deleted successfully."
+msgstr "Le terme a été supprimé du thésaurus"
+
+#: src/pyams_thesaurus/zmi/test.py:48
+msgid "Thesaurus terms"
+msgstr "Termes du thésaurus"
+
+#: src/pyams_thesaurus/zmi/test.py:76
+msgid "Test thesaurus widgets"
+msgstr "Test du thésaurus"
+
+#: src/pyams_thesaurus/zmi/test.py:86
+msgid "Thesaurus test form"
+msgstr "Test d'utilisation du thésaurus"
+
+#: src/pyams_thesaurus/zmi/test.py:87
+msgid "Thesaurus widget test"
+msgstr "Test de widgets du thésaurus"
+
+#: src/pyams_thesaurus/zmi/widget.py:172 src/pyams_thesaurus/zmi/widget.py:228
+msgid "No selected term"
+msgstr "Aucun terme sélectionné"
+
+#: src/pyams_thesaurus/zmi/thesaurus.py:66
+msgid "Another thesaurus is already registered with this name!"
+msgstr "Un autre thésaurus est déjà enregistré sous ce nom !"
+
+#: src/pyams_thesaurus/zmi/thesaurus.py:80
+msgid "New thesaurus"
+msgstr "Nouveau thésaurus"
+
+#: src/pyams_thesaurus/zmi/thesaurus.py:112
+msgid "Add thesaurus"
+msgstr "Ajouter un thésaurus"
+
+#: src/pyams_thesaurus/zmi/thesaurus.py:122
+msgid "New thesaurus properties"
+msgstr "Propriétés du nouveau thésaurus"
+
+#: src/pyams_thesaurus/zmi/thesaurus.py:143
+#: src/pyams_thesaurus/zmi/thesaurus.py:158
+msgid "Clone thesaurus"
+msgstr "Dupliquer le thésaurus"
+
+#: src/pyams_thesaurus/zmi/thesaurus.py:216
+msgid "Thesaurus properties"
+msgstr "Propriétés du thésaurus"
 
 #: src/pyams_thesaurus/zmi/tree.py:71
 msgid "Terms tree"
@@ -587,94 +625,81 @@ msgstr "Export des termes"
 msgid "Export thesaurus terms"
 msgstr "Paramètres de l'export"
 
-#: src/pyams_thesaurus/zmi/test.py:48
-msgid "Thesaurus terms"
-msgstr "Termes du thésaurus"
+#: src/pyams_thesaurus/zmi/extract.py:106
+msgid "Thesaurus extracts"
+msgstr "Extraits du thésaurus"
 
-#: src/pyams_thesaurus/zmi/test.py:76
-msgid "Test thesaurus widgets"
-msgstr "Test du thésaurus"
+#: src/pyams_thesaurus/zmi/extract.py:125
+msgid "Display extract terms"
+msgstr "Afficher les termes de l'extrait"
 
-#: src/pyams_thesaurus/zmi/test.py:86
-msgid "Thesaurus test form"
-msgstr "Test d'utilisation du thésaurus"
+#: src/pyams_thesaurus/zmi/extract.py:158
+msgid "Show/hide extract"
+msgstr "Afficher/masquer l'extrait"
 
-#: src/pyams_thesaurus/zmi/test.py:87
-msgid "Thesaurus widget test"
-msgstr "Test de widgets du thésaurus"
+#: src/pyams_thesaurus/zmi/extract.py:204
+msgid "Another extract is already registered with this name!"
+msgstr "Un autre extrait est déjà enregistré sous ce nom !"
 
-#: src/pyams_thesaurus/zmi/__init__.py:71
-msgid "Thesaurus container"
-msgstr "Gestionnaire de thésaurus"
+#: src/pyams_thesaurus/zmi/extract.py:233
+msgid "Add extract"
+msgstr "Ajouter un extrait"
 
-#: src/pyams_thesaurus/zmi/__init__.py:81
-msgid "Thesaurus"
-msgstr "Thésaurus"
+#: src/pyams_thesaurus/zmi/extract.py:249
+msgid "New thesaurus extract"
+msgstr "Nouvel extrait du thésaurus"
 
-#: src/pyams_thesaurus/zmi/__init__.py:135
-#: src/pyams_thesaurus/zmi/__init__.py:179
-msgid "Thesaurus list"
-msgstr "Liste des thésaurus"
+#: src/pyams_thesaurus/zmi/extract.py:258
+msgid "New extract properties"
+msgstr "Propriétés du nouvel extrait"
 
-#: src/pyams_thesaurus/zmi/__init__.py:181
-msgid "List of thesaurus"
-msgstr "Liste des thésaurus"
+#: src/pyams_thesaurus/zmi/extract.py:278
+#: src/pyams_thesaurus/zmi/extract.py:293
+msgid "Clone thesaurus extract"
+msgstr "Dupliquer l'extrait"
 
-#: src/pyams_thesaurus/zmi/__init__.py:210
-#: src/pyams_thesaurus/zmi/thesaurus.py:205
-msgid "Properties"
-msgstr "Propriétés"
-
-#: src/pyams_thesaurus/zmi/__init__.py:226
-msgid "Thesaurus manager properties"
-msgstr "Propriétés du gestionnaire de thésaurus"
-
-#: src/pyams_thesaurus/zmi/term.py:52
-msgid "Add term"
-msgstr "Ajouter un terme"
-
-#: src/pyams_thesaurus/zmi/term.py:70
-msgid "Create new term"
-msgstr "Nouveau terme"
-
-#: src/pyams_thesaurus/zmi/term.py:72
-msgid "New term properties"
-msgstr "Propriétés du nouveau terme"
-
-#: src/pyams_thesaurus/zmi/term.py:142 src/pyams_thesaurus/zmi/extension.py:38
+#: src/pyams_thesaurus/zmi/extract.py:340
+#: src/pyams_thesaurus/zmi/extract.py:411
 #, python-format
-msgid "Term: {}"
-msgstr "Terme : {}"
+msgid "Thesaurus extract: {}"
+msgstr "Extrait du thésaurus : {}"
 
-#: src/pyams_thesaurus/zmi/term.py:144
-msgid "Thesaurus term properties"
-msgstr "Propriétés d'un terme"
+#: src/pyams_thesaurus/zmi/extract.py:342
+msgid "Extract properties"
+msgstr "Propriétés de l'extrait"
 
-#: src/pyams_thesaurus/zmi/thesaurus.py:66
-msgid "Another thesaurus is already registered with this name!"
-msgstr "Un autre thésaurus est déjà enregistré sous ce nom !"
+#: src/pyams_thesaurus/zmi/extract.py:381
+msgid "Extract roles"
+msgstr "Rôles de l'extrait"
 
-#: src/pyams_thesaurus/zmi/thesaurus.py:80
-msgid "New thesaurus"
-msgstr "Nouveau thésaurus"
-
-#: src/pyams_thesaurus/zmi/thesaurus.py:114
-msgid "Add thesaurus"
-msgstr "Ajouter un thésaurus"
-
-#: src/pyams_thesaurus/zmi/thesaurus.py:126
-msgid "New thesaurus properties"
-msgstr "Propriétés du nouveau thésaurus"
-
-#: src/pyams_thesaurus/zmi/thesaurus.py:147
-#: src/pyams_thesaurus/zmi/thesaurus.py:162
-msgid "Clone thesaurus"
-msgstr "Dupliquer le thésaurus"
-
-#: src/pyams_thesaurus/zmi/thesaurus.py:220
-msgid "Thesaurus properties"
-msgstr "Propriétés du thésaurus"
+#: src/pyams_thesaurus/zmi/extract.py:413
+msgid "Extract terms"
+msgstr "Termes de l'extrait"
 
 #: src/pyams_thesaurus/zmi/templates/terms-tree.pt:19
 msgid "Search term..."
 msgstr "Rechercher un terme..."
+
+#: src/pyams_thesaurus/api/rest.py:50 src/pyams_thesaurus/api/rest.py:125
+msgid "Selected thesaurus name"
+msgstr "Nom du thésaurus"
+
+#: src/pyams_thesaurus/api/rest.py:64 src/pyams_thesaurus/api/rest.py:148
+msgid "Results list"
+msgstr "Liste de résultats"
+
+#: src/pyams_thesaurus/api/rest.py:68 src/pyams_thesaurus/api/rest.py:152
+msgid "Search results"
+msgstr "Résultats de la recherche"
+
+#: src/pyams_thesaurus/api/rest.py:127
+msgid "Selected extract name"
+msgstr "Nom de l'extrait"
+
+#: src/pyams_thesaurus/api/rest.py:130
+msgid "Terms search string"
+msgstr "Texte de recherche des termes"
+
+#: src/pyams_thesaurus/api/rest.py:136
+msgid "Term ID"
+msgstr "Identifiant du terme"

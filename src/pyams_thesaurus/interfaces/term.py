@@ -21,8 +21,8 @@ from zope.location.interfaces import IContained
 from zope.schema import Bool, Choice, Datetime, Int, Set, Text, TextLine
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
-from pyams_thesaurus.interfaces.extension import THESAURUS_EXTENSIONS_VOCABULARY
 from pyams_thesaurus.interfaces import THESAURUS_EXTRACTS_VOCABULARY
+from pyams_thesaurus.interfaces.extension import THESAURUS_EXTENSIONS_VOCABULARY
 from pyams_thesaurus.schema import ThesaurusTermField, ThesaurusTermsListField, ValidatedSet
 
 
@@ -152,6 +152,9 @@ class IThesaurusTerm(IContained):
 
     modified = Datetime(title=_("Modification date"),
                         required=False)
+
+    def is_deletable(self):
+        """Check if thesaurus term can be removed"""
 
     def add_extract(self, extract, check=True):
         """Add given extract to the list of term extracts"""
