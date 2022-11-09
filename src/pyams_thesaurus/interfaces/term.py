@@ -15,6 +15,7 @@
 This module defines thesaurus terms interfaces.
 """
 
+from zope.annotation import IAttributeAnnotatable
 from zope.container.interfaces import IContainer
 from zope.interface import Attribute, Interface, Invalid, invariant
 from zope.location.interfaces import IContained
@@ -49,7 +50,7 @@ THESAURUS_STATUS_VOCABULARY = SimpleVocabulary([
 ])
 
 
-class IThesaurusTerm(IContained):
+class IThesaurusTerm(IContained, IAttributeAnnotatable):
     """Thesaurus term base interface"""
 
     id = Attribute("Internal ID")
