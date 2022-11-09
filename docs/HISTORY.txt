@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.3.1
+-----
+ - added missing IAttributeAnnotatable base interface to terms
+
 1.3.0
 -----
  - added thesaurus method to remove terms
