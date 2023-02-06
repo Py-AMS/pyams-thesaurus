@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.3.2
+-----
+ - added check for undefined thesaurus name in terms selection widget
+ - added support for Python 3.11
+
 1.3.1
 -----
  - added missing IAttributeAnnotatable base interface to terms
