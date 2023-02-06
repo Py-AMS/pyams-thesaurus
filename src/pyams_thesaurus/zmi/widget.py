@@ -90,7 +90,8 @@ class ThesaurusWidgetMixin:  # pylint: disable=no-member
                                           IThesaurus, name=self.field.__name__)
             if thesaurus is None:
                 name = self.thesaurus_name
-                thesaurus = query_utility(IThesaurus, name=name)
+                if name:
+                    thesaurus = query_utility(IThesaurus, name=name)
         return thesaurus
 
     @property
