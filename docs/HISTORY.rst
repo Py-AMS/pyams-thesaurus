@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.3.4
+-----
+ - updated Colander API schemas for better OpenAPI specifications
+
+1.3.3
+-----
+ - version mismatch
+
 1.3.2
 -----
  - added check for undefined thesaurus name in terms selection widget
