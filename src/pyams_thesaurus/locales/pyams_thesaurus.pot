@@ -1,12 +1,12 @@
 #
 # SOME DESCRIPTIVE TITLE
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2022-10-15 01:18+0200\n"
+"POT-Creation-Date: 2023-04-12 16:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,7 +218,7 @@ msgid "Publisher"
 msgstr ""
 
 #: ./src/pyams_thesaurus/interfaces/thesaurus.py:64
-#: ./src/pyams_thesaurus/interfaces/term.py:150
+#: ./src/pyams_thesaurus/interfaces/term.py:151
 msgid "Creation date"
 msgstr ""
 
@@ -296,156 +296,155 @@ msgstr ""
 msgid "Thesaurus extract"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:42
+#: ./src/pyams_thesaurus/interfaces/term.py:43
 msgid "Candidate"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:43
+#: ./src/pyams_thesaurus/interfaces/term.py:44
 msgid "Published"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:44
+#: ./src/pyams_thesaurus/interfaces/term.py:45
 msgid "Archived"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:57
-#: ./src/pyams_thesaurus/api/rest.py:138
+#: ./src/pyams_thesaurus/interfaces/term.py:58
 msgid "Term label"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:58
+#: ./src/pyams_thesaurus/interfaces/term.py:59
 msgid "Full keyword for the given term"
 msgstr ""
 
 #. pylint: disable=unsupported-membership-test
-#: ./src/pyams_thesaurus/interfaces/term.py:65
+#: ./src/pyams_thesaurus/interfaces/term.py:66
 msgid "'/' character is forbidden in term's label"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:71
+#: ./src/pyams_thesaurus/interfaces/term.py:72
 msgid "Alternate label"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:72
+#: ./src/pyams_thesaurus/interfaces/term.py:73
 msgid "Not to be confused with synonyms 'usage' label, given below..."
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:76
+#: ./src/pyams_thesaurus/interfaces/term.py:77
 msgid "Definition"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:77
+#: ./src/pyams_thesaurus/interfaces/term.py:78
 msgid "Long definition, mostly for complicated terms"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:80
+#: ./src/pyams_thesaurus/interfaces/term.py:81
 msgid "Term's application note"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:81
+#: ./src/pyams_thesaurus/interfaces/term.py:82
 msgid "Application note for the given term"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:84
+#: ./src/pyams_thesaurus/interfaces/term.py:85
 msgid "Generic term"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:85
+#: ./src/pyams_thesaurus/interfaces/term.py:86
 msgid "Parent generic term of the current term"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:88
+#: ./src/pyams_thesaurus/interfaces/term.py:89
 msgid "Order"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:89
+#: ./src/pyams_thesaurus/interfaces/term.py:90
 msgid ""
 "Term's position between it's siblings; default terms order is alphabetical"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:93
+#: ./src/pyams_thesaurus/interfaces/term.py:94
 msgid "Specifics terms"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:94
+#: ./src/pyams_thesaurus/interfaces/term.py:95
 msgid "Child more specifics terms of the current term"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:98
+#: ./src/pyams_thesaurus/interfaces/term.py:99
 msgid "Associated terms"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:99
+#: ./src/pyams_thesaurus/interfaces/term.py:100
 msgid "Other terms associated to the current term"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:103
+#: ./src/pyams_thesaurus/interfaces/term.py:104
 msgid "Usage"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:104
+#: ./src/pyams_thesaurus/interfaces/term.py:105
 msgid "For synonyms, specify here the term's descriptor to use"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:108
+#: ./src/pyams_thesaurus/interfaces/term.py:109
 msgid "Synonyms"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:109
+#: ./src/pyams_thesaurus/interfaces/term.py:110
 msgid "For a given allowed descriptor, specify here the list of synonyms"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:118
+#: ./src/pyams_thesaurus/interfaces/term.py:119
 msgid "A term can't be a synonym and attached to a generic term"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:120
+#: ./src/pyams_thesaurus/interfaces/term.py:121
 msgid ""
 "A term used as synonym can't have it's own synonyms (all synonyms should be "
 "attached to the descriptor)"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:123
+#: ./src/pyams_thesaurus/interfaces/term.py:124
 msgid "Extracts"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:124
+#: ./src/pyams_thesaurus/interfaces/term.py:125
 msgid "List of thesaurus extracts including this term"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:128
+#: ./src/pyams_thesaurus/interfaces/term.py:129
 msgid "Extensions"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:129
+#: ./src/pyams_thesaurus/interfaces/term.py:130
 msgid "List of available extensions applied to this term"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:133
+#: ./src/pyams_thesaurus/interfaces/term.py:134
 msgid "Status"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:134
+#: ./src/pyams_thesaurus/interfaces/term.py:135
 msgid "Term status"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:141
+#: ./src/pyams_thesaurus/interfaces/term.py:142
 msgid "Micro-thesaurus?"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:142
+#: ./src/pyams_thesaurus/interfaces/term.py:143
 msgid "Is the term part of a micro-thesaurus?"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:145
+#: ./src/pyams_thesaurus/interfaces/term.py:146
 msgid "First level parent"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:146
+#: ./src/pyams_thesaurus/interfaces/term.py:147
 msgid "Parent at level 1 of the current term, or None"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/term.py:153
+#: ./src/pyams_thesaurus/interfaces/term.py:154
 msgid "Modification date"
 msgstr ""
 
@@ -532,8 +531,8 @@ msgstr ""
 msgid "Thesaurus widget test"
 msgstr ""
 
-#: ./src/pyams_thesaurus/zmi/widget.py:172
-#: ./src/pyams_thesaurus/zmi/widget.py:228
+#: ./src/pyams_thesaurus/zmi/widget.py:173
+#: ./src/pyams_thesaurus/zmi/widget.py:229
 msgid "No selected term"
 msgstr ""
 
@@ -661,28 +660,4 @@ msgstr ""
 
 #: ./src/pyams_thesaurus/zmi/templates/terms-tree.pt:19
 msgid "Search term..."
-msgstr ""
-
-#: ./src/pyams_thesaurus/api/rest.py:50 ./src/pyams_thesaurus/api/rest.py:125
-msgid "Selected thesaurus name"
-msgstr ""
-
-#: ./src/pyams_thesaurus/api/rest.py:64 ./src/pyams_thesaurus/api/rest.py:148
-msgid "Results list"
-msgstr ""
-
-#: ./src/pyams_thesaurus/api/rest.py:68 ./src/pyams_thesaurus/api/rest.py:152
-msgid "Search results"
-msgstr ""
-
-#: ./src/pyams_thesaurus/api/rest.py:127
-msgid "Selected extract name"
-msgstr ""
-
-#: ./src/pyams_thesaurus/api/rest.py:130
-msgid "Terms search string"
-msgstr ""
-
-#: ./src/pyams_thesaurus/api/rest.py:136
-msgid "Term ID"
 msgstr ""

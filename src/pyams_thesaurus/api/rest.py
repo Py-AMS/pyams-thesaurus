@@ -19,22 +19,21 @@ import sys
 
 from colander import MappingSchema, SchemaNode, SequenceSchema, String, drop
 from cornice import Service
-from cornice.validators import colander_querystring_validator
+from cornice.validators import colander_validator
 from hypatia.text import ParseError
-from pyramid.httpexceptions import HTTPOk
+from pyramid.httpexceptions import HTTPBadRequest, HTTPOk
 
 from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
 from pyams_security.rest import check_cors_origin, set_cors_headers
 from pyams_thesaurus.interfaces import REST_EXTRACTS_GETTER_ROUTE, REST_TERMS_SEARCH_ROUTE
-
-
-__docformat__ = 'restructuredtext'
-
-from pyams_thesaurus import _
 from pyams_thesaurus.interfaces.term import STATUS_ARCHIVED
 from pyams_thesaurus.interfaces.thesaurus import IThesaurus, IThesaurusExtracts
 from pyams_utils.list import unique
 from pyams_utils.registry import query_utility
+from pyams_utils.rest import BaseResponseSchema, BaseStatusSchema, STATUS, http_error, rest_responses
+
+
+__docformat__ = 'restructuredtext'
 
 
 TEST_MODE = sys.argv[-1].endswith('/test')
@@ -44,35 +43,29 @@ TEST_MODE = sys.argv[-1].endswith('/test')
 # Thesaurus extracts getter services
 #
 
-class ThesaurusExtractsGetterSchema(MappingSchema):
+class ThesaurusExtractsQuery(MappingSchema):
     """Thesaurus extracts getter schema"""
     thesaurus_name = SchemaNode(String(),
-                                description=_("Selected thesaurus name"))
+                                description="Selected thesaurus name")
 
 
-class ThesaurusExtractResultSchema(MappingSchema):
+class ThesaurusExtract(MappingSchema):
     """Thesaurus extracts getter result schema"""
+    id = SchemaNode(String(),
+                    description="Extract ID")
+    text = SchemaNode(String(),
+                      description="Extract name")
 
 
-class ThesaurusExtractsResults(SequenceSchema):
+class ThesaurusExtractsList(SequenceSchema):
     """Thesaurus extracts result schema"""
-    result = ThesaurusExtractResultSchema()
+    extract = ThesaurusExtract()
 
 
-class ThesaurusExtractsResultsSchema(MappingSchema):
+class ThesaurusExtractsSearchResults(BaseStatusSchema):
     """Thesaurus extracts results schema"""
-    results = ThesaurusExtractsResults(description=_("Results list"))
-
-
-extracts_search_response = {
-    HTTPOk.code: ThesaurusExtractsResultsSchema(description=_("Search results"))
-}
-if TEST_MODE:
-    extracts_service_params = {}
-else:
-    extracts_service_params = {
-        'response_schemas': extracts_search_response
-    }
+    results = ThesaurusExtractsList(description="Thesaurus extracts list",
+                                    missing=drop)
 
 
 extracts_service = Service(name=REST_EXTRACTS_GETTER_ROUTE,
@@ -80,31 +73,43 @@ extracts_service = Service(name=REST_EXTRACTS_GETTER_ROUTE,
                            description="Thesaurus extracts management")
 
 
-@extracts_service.options(validators=(check_cors_origin, set_cors_headers),
-                          **extracts_service_params)
+@extracts_service.options(validators=(check_cors_origin, set_cors_headers))
 def extracts_options(request):  # pylint: disable=unused-argument
     """Extracts service OPTIONS handler"""
     return ''
 
 
+class ThesaurusExtractsRequest(MappingSchema):
+    """Thesaurus extracts request"""
+    querystring = ThesaurusExtractsQuery()
+
+
+class ThesaurusExtractsResponse(MappingSchema):
+    """Thesaurus extracts getter response"""
+    body = ThesaurusExtractsSearchResults()
+
+
+extracts_get_responses = rest_responses.copy()
+extracts_get_responses[HTTPOk.code] = ThesaurusExtractsResponse(
+    description="Thesaurus extracts query response")
+
+
 @extracts_service.get(permission=VIEW_SYSTEM_PERMISSION,
-                      schema=ThesaurusExtractsGetterSchema(),
-                      validators=(check_cors_origin, colander_querystring_validator,
-                                  set_cors_headers),
-                      **extracts_service_params)
+                      schema=ThesaurusExtractsRequest(),
+                      validators=(check_cors_origin, colander_validator, set_cors_headers),
+                      response_schemas=extracts_get_responses)
 def get_extracts(request):
     """Get thesaurus extracts list"""
-    if TEST_MODE:
-        thesaurus_name = request.params.get('thesaurus_name')
-    else:
-        thesaurus_name = request.validated.get('thesaurus_name')
+    params = request.params if TEST_MODE else request.validated.get('querystring', {})
+    thesaurus_name = params.get('thesaurus_name')
     if not thesaurus_name:
-        return {}
+        return http_error(request, HTTPBadRequest, 'missing argument')
     thesaurus = query_utility(IThesaurus, name=thesaurus_name)
     if thesaurus is None:
-        return {}
+        return http_error(request, HTTPBadRequest, 'bad thesaurus name')
     extracts = IThesaurusExtracts(thesaurus)
     return {
+        'status': STATUS.SUCCESS.value,
         'results': [
             {
                 'id': extract.name,
@@ -119,44 +124,34 @@ def get_extracts(request):
 # Thesaurus terms search services
 #
 
-class ThesaurusTermsSearchQuerySchema(MappingSchema):
+class ThesaurusTermsQuery(MappingSchema):
     """Thesaurus terms search schema"""
     thesaurus_name = SchemaNode(String(),
-                                description=_("Selected thesaurus name"))
+                                description="Selected thesaurus name")
     extract_name = SchemaNode(String(),
-                              description=_("Selected extract name"),
+                              description="Selected extract name",
                               missing=drop)
     term = SchemaNode(String(),
-                      description=_("Terms search string"))
+                      description="Terms search string")
 
 
-class ThesaurusTermResultSchema(MappingSchema):
-    """Thesaurus term result schema"""
+class ThesaurusTerm(MappingSchema):
+    """Thesaurus term"""
     id = SchemaNode(String(),
-                    description=_("Term ID"))
+                    description="Term ID")
     text = SchemaNode(String(),
-                      description=_("Term label"))
+                      description="Term label")
 
 
-class ThesaurusSearchResults(SequenceSchema):
+class ThesaurusTermsList(SequenceSchema):
     """Thesaurus search results interface"""
-    result = ThesaurusTermResultSchema()
+    term = ThesaurusTerm()
 
 
-class ThesaurusSearchResultsSchema(MappingSchema):
+class ThesaurusTermsSearchResults(BaseResponseSchema):
     """Thesaurus search results schema"""
-    results = ThesaurusSearchResults(description=_("Results list"))
-
-
-terms_search_response = {
-    HTTPOk.code: ThesaurusSearchResultsSchema(description=_("Search results"))
-}
-if TEST_MODE:
-    terms_service_params = {}
-else:
-    terms_service_params = {
-        'response_schemas': terms_search_response
-    }
+    results = ThesaurusTermsList(description="Results list",
+                                 missing=drop)
 
 
 terms_service = Service(name=REST_TERMS_SEARCH_ROUTE,
@@ -164,35 +159,51 @@ terms_service = Service(name=REST_TERMS_SEARCH_ROUTE,
                         description="Thesaurus terms management")
 
 
-@terms_service.options(validators=(check_cors_origin, set_cors_headers),
-                       **terms_service_params)
+@terms_service.options(validators=(check_cors_origin, set_cors_headers))
 def terms_options(request):  # pylint: disable=unused-argument
     """Terms service OPTIONS handler"""
     return ''
 
 
+class ThesaurusTermsRequest(MappingSchema):
+    """Terms getter request"""
+    querystring = ThesaurusTermsQuery()
+
+
+class ThesaurusTermsResponse(MappingSchema):
+    """Terms getter response"""
+    body = ThesaurusTermsSearchResults()
+
+
+terms_get_responses = rest_responses.copy()
+terms_get_responses[HTTPOk.code] = ThesaurusTermsResponse(
+    description="List of terms matching given query")
+
+
 @terms_service.get(permission=VIEW_SYSTEM_PERMISSION,
-                   schema=ThesaurusTermsSearchQuerySchema(),
-                   validators=(check_cors_origin, colander_querystring_validator,
-                               set_cors_headers),
-                   **terms_service_params)
+                   schema=ThesaurusTermsRequest(),
+                   validators=(check_cors_origin, colander_validator, set_cors_headers),
+                   response_schemas=terms_get_responses)
 def get_terms(request):
     """Returns list of terms matching given query"""
-    if TEST_MODE:
-        thesaurus_name = request.params.get('thesaurus_name')
-        extract_name = request.params.get('extract_name')
-        query = request.params.get('term')
-    else:
-        thesaurus_name = request.validated.get('thesaurus_name')
-        extract_name = request.validated.get('extract_name')
-        query = request.validated.get('term')
+    params = request.params if TEST_MODE else request.validated.get('querystring', {})
+    thesaurus_name = params.get('thesaurus_name')
+    extract_name = params.get('extract_name')
+    query = params.get('term')
     if not (thesaurus_name or query):
-        return {}
+        return {
+            'status': STATUS.ERROR.value,
+            'message': "Missing arguments"
+        }
     thesaurus = query_utility(IThesaurus, name=thesaurus_name)
     if thesaurus is None:
-        return {}
+        return {
+            'status': STATUS.ERROR.value,
+            'message': "Thesaurus not found"
+        }
     try:
         return {
+            'status': STATUS.SUCCESS.value,
             'results': [
                 {
                     'id': term.label,
@@ -204,4 +215,4 @@ def get_terms(request):
             ]
         }
     except ParseError:
-        return []
+        return {}
