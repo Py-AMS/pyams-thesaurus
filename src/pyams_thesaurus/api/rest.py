@@ -23,7 +23,7 @@ from cornice.validators import colander_validator
 from hypatia.text import ParseError
 from pyramid.httpexceptions import HTTPBadRequest, HTTPOk
 
-from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
+from pyams_security.interfaces.base import USE_INTERNAL_API_PERMISSION
 from pyams_security.rest import check_cors_origin, set_cors_headers
 from pyams_thesaurus.interfaces import REST_EXTRACTS_GETTER_ROUTE, REST_TERMS_SEARCH_ROUTE
 from pyams_thesaurus.interfaces.term import STATUS_ARCHIVED
@@ -94,7 +94,7 @@ extracts_get_responses[HTTPOk.code] = ThesaurusExtractsResponse(
     description="Thesaurus extracts query response")
 
 
-@extracts_service.get(permission=VIEW_SYSTEM_PERMISSION,
+@extracts_service.get(permission=USE_INTERNAL_API_PERMISSION,
                       schema=ThesaurusExtractsRequest(),
                       validators=(check_cors_origin, colander_validator, set_cors_headers),
                       response_schemas=extracts_get_responses)
