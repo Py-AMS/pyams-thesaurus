@@ -537,6 +537,11 @@ class ThesaurusNamesVocabulary(LocalUtilitiesVocabulary):
 
     interface = IThesaurus
 
+    @staticmethod
+    def title_factory(thesaurus):
+        """Thesaurus title getter"""
+        return thesaurus.title
+
 
 @vocabulary_config(name=THESAURUS_EXTRACTS_VOCABULARY)
 class ThesaurusExtractsVocabulary(SimpleVocabulary):
