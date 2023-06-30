@@ -50,7 +50,7 @@ from pyams_viewlet.manager import viewletmanager_config
 from pyams_viewlet.viewlet import ViewContentProvider, viewlet_config
 from pyams_zmi.form import AdminModalAddForm
 from pyams_zmi.interfaces import IAdminLayer, ICompositeView
-from pyams_zmi.interfaces.viewlet import IActionsViewletManager, IContentManagementMenu
+from pyams_zmi.interfaces.viewlet import IContextActionsDropdownMenu, IContentManagementMenu
 from pyams_zmi.view import CompositeAdminView
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 
@@ -230,7 +230,7 @@ def switch_term_extract(request):
 
 @viewlet_config(name='import-terms.action',
                 context=IThesaurus, layer=IAdminLayer, view=ThesaurusTermsTreeView,
-                manager=IActionsViewletManager, weight=10,
+                manager=IContextActionsDropdownMenu, weight=10,
                 permission=MANAGE_THESAURUS_CONTENT_PERMISSION)
 class ThesaurusImportAction(MenuItem):
     """Thesaurus import action"""
@@ -319,7 +319,7 @@ class ThesaurusImportFormRenderer(ContextRequestViewAdapter):
 
 @viewlet_config(name='export-terms.action',
                 context=IThesaurus, layer=IAdminLayer, view=ThesaurusTermsTreeView,
-                manager=IActionsViewletManager, weight=20,
+                manager=IContextActionsDropdownMenu, weight=20,
                 permission=MANAGE_THESAURUS_CONTENT_PERMISSION)
 class ThesaurusExportAction(MenuItem):
     """Thesaurus export action"""
