@@ -28,10 +28,10 @@ from pyams_security.rest import check_cors_origin, set_cors_headers
 from pyams_thesaurus.interfaces import REST_EXTRACTS_GETTER_ROUTE, REST_TERMS_SEARCH_ROUTE
 from pyams_thesaurus.interfaces.term import STATUS_ARCHIVED
 from pyams_thesaurus.interfaces.thesaurus import IThesaurus, IThesaurusExtracts
+from pyams_utils.interfaces.form import NO_VALUE_STRING
 from pyams_utils.list import unique
 from pyams_utils.registry import query_utility
 from pyams_utils.rest import BaseResponseSchema, BaseStatusSchema, STATUS, http_error, rest_responses
-
 
 __docformat__ = 'restructuredtext'
 
@@ -104,6 +104,11 @@ def get_extracts(request):
     thesaurus_name = params.get('thesaurus_name')
     if not thesaurus_name:
         return http_error(request, HTTPBadRequest, 'missing argument')
+    if thesaurus_name == NO_VALUE_STRING:
+        return {
+            'status': STATUS.SUCCESS.value,
+            'results': []
+        }
     thesaurus = query_utility(IThesaurus, name=thesaurus_name)
     if thesaurus is None:
         return http_error(request, HTTPBadRequest, 'bad thesaurus name')
@@ -180,7 +185,7 @@ terms_get_responses[HTTPOk.code] = ThesaurusTermsResponse(
     description="List of terms matching given query")
 
 
-@terms_service.get(permission=VIEW_SYSTEM_PERMISSION,
+@terms_service.get(permission=USE_INTERNAL_API_PERMISSION,
                    schema=ThesaurusTermsRequest(),
                    validators=(check_cors_origin, colander_validator, set_cors_headers),
                    response_schemas=terms_get_responses)
