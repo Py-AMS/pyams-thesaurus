@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.3.5
+-----
+ - updated API usage permission
+ - updated context actions viewlet manager name
+ - added thesaurus names title factory
+
 1.3.4
 -----
  - updated Colander API schemas for better OpenAPI specifications
