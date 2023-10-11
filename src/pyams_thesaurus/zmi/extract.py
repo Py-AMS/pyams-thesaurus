@@ -17,6 +17,7 @@ This module provides extracts management components.
 
 from html import unescape
 
+from pyramid.decorator import reify
 from pyramid.events import subscriber
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.view import view_config
@@ -74,7 +75,7 @@ class ThesaurusExtractsTable(Table):
         'table': 'table table-striped table-hover table-sm datatable extracts'
     }
 
-    @property
+    @reify
     def data_attributes(self):
         attributes = super().data_attributes
         attributes['table'].update({
