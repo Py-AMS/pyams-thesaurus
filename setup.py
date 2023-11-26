@@ -23,7 +23,7 @@ DOCS = os.path.join(os.path.dirname(__file__),
 README = os.path.join(DOCS, 'README.rst')
 HISTORY = os.path.join(DOCS, 'HISTORY.rst')
 
-version = '1.3.5'
+version = '2.0.0'
 long_description = open(README).read() + '\n\n' + open(HISTORY).read()
 
 tests_require = [
@@ -74,7 +74,7 @@ setup(name='pyams_thesaurus',
           'pyams_security',
           'pyams_site',
           'pyams_utils',
-          'pyramid',
+          'pyramid >= 2.0.0',
           'transaction',
           'zope.annotation',
           'zope.componentvocabulary',

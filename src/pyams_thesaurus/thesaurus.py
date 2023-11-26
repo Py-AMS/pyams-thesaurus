@@ -346,7 +346,7 @@ class Thesaurus(ProtectedObjectMixin, Persistent, Contained):
                 provides=IObjectLabel)
 def thesaurus_label(context):
     """Thesaurus label getter"""
-    return context.name
+    return context.title
 
 
 @implementer(IThesaurusRoles)

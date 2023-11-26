@@ -470,7 +470,7 @@ msgstr "Date de modification"
 
 #: src/pyams_thesaurus/zmi/__init__.py:71
 msgid "Thesaurus container"
-msgstr "Gestionnaire de thésaurus"
+msgstr "Thésaurus"
 
 #: src/pyams_thesaurus/zmi/__init__.py:81
 msgid "Thesaurus"

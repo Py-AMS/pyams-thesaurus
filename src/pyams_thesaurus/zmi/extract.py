@@ -383,8 +383,8 @@ class ThesaurusExtractRolesEditForm(Group):
 
     fields = Fields(IThesaurusExtractRoles)
 
-    def update_widgets(self, prefix=None):
-        super().update_widgets(prefix)
+    def update_widgets(self, prefix=None, use_form_mode=True):
+        super().update_widgets(prefix, use_form_mode)
         managers = self.widgets.get('managers')
         if managers is not None:
             if not self.request.has_permission(ADMIN_THESAURUS_PERMISSION, context=self.context):
