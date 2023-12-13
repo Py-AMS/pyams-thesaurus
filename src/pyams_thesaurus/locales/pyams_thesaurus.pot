@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2023-04-12 16:01+0200\n"
+"POT-Creation-Date: 2023-12-05 11:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,14 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Lingua 4.15.0\n"
-
-#: ./src/pyams_thesaurus/thesaurus.py:232
-msgid "Term not found"
-msgstr ""
-
-#: ./src/pyams_thesaurus/thesaurus.py:234
-msgid "Term can't be deleted"
-msgstr ""
 
 #: ./src/pyams_thesaurus/include.py:43
 msgid "Create thesaurus"
@@ -52,24 +44,225 @@ msgstr ""
 msgid "Thesaurus extract manager (role)"
 msgstr ""
 
-#: ./src/pyams_thesaurus/extension/html/__init__.py:53
-msgid "Rich text description"
+#: ./src/pyams_thesaurus/thesaurus.py:231
+msgid "Term not found"
 msgstr ""
 
-#: ./src/pyams_thesaurus/extension/html/interfaces.py:36
-msgid "HTML content"
+#: ./src/pyams_thesaurus/thesaurus.py:233
+msgid "Term can't be deleted"
 msgstr ""
 
-#: ./src/pyams_thesaurus/extension/html/zmi/__init__.py:37
-msgid "HTML description"
+#: ./src/pyams_thesaurus/thesaurus.py:349
+#: ./src/pyams_thesaurus/zmi/extract.py:248
+#: ./src/pyams_thesaurus/zmi/extract.py:339
+#: ./src/pyams_thesaurus/zmi/extract.py:410
+#, python-format
+msgid "Thesaurus: {}"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/index.py:29
-msgid "Include term parents into index values"
+#: ./src/pyams_thesaurus/term.py:481 ./src/pyams_thesaurus/zmi/term.py:156
+#, python-format
+msgid "Term: {}"
 msgstr ""
 
-#: ./src/pyams_thesaurus/interfaces/index.py:33
-msgid "Include term synonyms into index values"
+#: ./src/pyams_thesaurus/zmi/tree.py:75
+msgid "Terms tree"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/tree.py:99
+msgid "Terms tree view"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/tree.py:242 ./src/pyams_thesaurus/zmi/tree.py:253
+msgid "Import terms"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/tree.py:256 ./src/pyams_thesaurus/zmi/tree.py:338
+msgid "Cancel"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/tree.py:265
+msgid "Import new terms"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/tree.py:266
+msgid "Terms import settings"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/tree.py:277 ./src/pyams_thesaurus/zmi/tree.py:280
+msgid "-- automatic detection -- (if available)"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/tree.py:324
+msgid "Export terms"
+msgstr ""
+
+#. Default: Export terms
+#: ./src/pyams_thesaurus/zmi/tree.py:335
+msgid "terms-export-button"
+msgstr ""
+
+#. Default: Export terms
+#: ./src/pyams_thesaurus/zmi/tree.py:348
+msgid "terms-export-title"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/tree.py:349
+msgid "Terms export settings"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:107
+msgid "Thesaurus extracts"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:126
+msgid "Display extract terms"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:159
+msgid "Show/hide extract"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:205
+msgid "Another extract is already registered with this name!"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:234
+msgid "Add extract"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:250
+msgid "New thesaurus extract"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:259
+msgid "New extract properties"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:279
+#: ./src/pyams_thesaurus/zmi/extract.py:294
+msgid "Clone thesaurus extract"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:341
+#: ./src/pyams_thesaurus/zmi/extract.py:412
+#, python-format
+msgid "Thesaurus extract: {}"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:343
+msgid "Extract properties"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:382
+msgid "Extract roles"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/extract.py:414
+msgid "Extract terms"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/__init__.py:71
+msgid "Thesaurus container"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/__init__.py:88
+msgid "Thesaurus"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/__init__.py:142
+#: ./src/pyams_thesaurus/zmi/__init__.py:186
+msgid "Thesaurus list"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/__init__.py:188
+msgid "List of thesaurus"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/__init__.py:217
+#: ./src/pyams_thesaurus/zmi/thesaurus.py:214
+msgid "Properties"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/__init__.py:228
+msgid "Thesaurus manager properties"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/test.py:48
+msgid "Thesaurus terms"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/test.py:76
+msgid "Test thesaurus widgets"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/test.py:86
+msgid "Thesaurus test form"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/test.py:87
+msgid "Thesaurus widget test"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/thesaurus.py:85
+msgid "Another thesaurus is already registered with this name!"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/thesaurus.py:93
+msgid "New thesaurus properties"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/thesaurus.py:125
+msgid "Add thesaurus"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/thesaurus.py:135
+msgid "New thesaurus"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/thesaurus.py:156
+msgid "Clone thesaurus"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/thesaurus.py:171
+msgid "Create thesaurus clone"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/thesaurus.py:223
+msgid "Thesaurus properties"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/term.py:57
+msgid "Add term"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/term.py:67
+msgid "New term"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/term.py:68
+msgid "New term properties"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/term.py:143
+msgid "Delete term"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/term.py:158
+msgid "Thesaurus term properties"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/term.py:305
+msgid "Thesaurus term was deleted successfully."
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/widget.py:173
+#: ./src/pyams_thesaurus/zmi/widget.py:229
+msgid "No selected term"
+msgstr ""
+
+#: ./src/pyams_thesaurus/zmi/templates/terms-tree.pt:19
+msgid "Search term..."
 msgstr ""
 
 #: ./src/pyams_thesaurus/interfaces/loader.py:40
@@ -448,216 +641,26 @@ msgstr ""
 msgid "Modification date"
 msgstr ""
 
-#: ./src/pyams_thesaurus/zmi/__init__.py:71
-msgid "Thesaurus container"
+#: ./src/pyams_thesaurus/interfaces/index.py:29
+msgid "Include term parents into index values"
 msgstr ""
 
-#: ./src/pyams_thesaurus/zmi/__init__.py:81
-msgid "Thesaurus"
+#: ./src/pyams_thesaurus/interfaces/index.py:33
+msgid "Include term synonyms into index values"
 msgstr ""
 
-#: ./src/pyams_thesaurus/zmi/__init__.py:135
-#: ./src/pyams_thesaurus/zmi/__init__.py:179
-msgid "Thesaurus list"
+#: ./src/pyams_thesaurus/extension/html/__init__.py:53
+msgid "Rich text description"
 msgstr ""
 
-#: ./src/pyams_thesaurus/zmi/__init__.py:181
-msgid "List of thesaurus"
+#: ./src/pyams_thesaurus/extension/html/interfaces.py:36
+msgid "HTML content"
 msgstr ""
 
-#: ./src/pyams_thesaurus/zmi/__init__.py:210
-#: ./src/pyams_thesaurus/zmi/thesaurus.py:201
-msgid "Properties"
+#: ./src/pyams_thesaurus/extension/html/zmi/__init__.py:37
+msgid "Associated HTML description"
 msgstr ""
 
-#: ./src/pyams_thesaurus/zmi/__init__.py:226
-msgid "Thesaurus manager properties"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extension.py:37
-#: ./src/pyams_thesaurus/zmi/term.py:71 ./src/pyams_thesaurus/zmi/term.py:157
-#: ./src/pyams_thesaurus/zmi/thesaurus.py:214
-#: ./src/pyams_thesaurus/zmi/tree.py:266 ./src/pyams_thesaurus/zmi/tree.py:356
-#: ./src/pyams_thesaurus/zmi/extract.py:247
-#: ./src/pyams_thesaurus/zmi/extract.py:338
-#: ./src/pyams_thesaurus/zmi/extract.py:409
-#, python-format
-msgid "Thesaurus: {}"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extension.py:38
-#: ./src/pyams_thesaurus/zmi/term.py:158
-#, python-format
-msgid "Term: {}"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/term.py:56
-msgid "Add term"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/term.py:72
-msgid "Create new term"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/term.py:74
-msgid "New term properties"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/term.py:141
-msgid "Delete term"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/term.py:160
-msgid "Thesaurus term properties"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/term.py:307
-msgid "Thesaurus term was deleted successfully."
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/test.py:48
-msgid "Thesaurus terms"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/test.py:76
-msgid "Test thesaurus widgets"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/test.py:86
-msgid "Thesaurus test form"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/test.py:87
-msgid "Thesaurus widget test"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/widget.py:173
-#: ./src/pyams_thesaurus/zmi/widget.py:229
-msgid "No selected term"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/thesaurus.py:66
-msgid "Another thesaurus is already registered with this name!"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/thesaurus.py:80
-msgid "New thesaurus"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/thesaurus.py:112
-msgid "Add thesaurus"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/thesaurus.py:122
-msgid "New thesaurus properties"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/thesaurus.py:143
-#: ./src/pyams_thesaurus/zmi/thesaurus.py:158
-msgid "Clone thesaurus"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/thesaurus.py:216
-msgid "Thesaurus properties"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tree.py:71
-msgid "Terms tree"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tree.py:95
-msgid "Terms tree view"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tree.py:238 ./src/pyams_thesaurus/zmi/tree.py:249
-msgid "Import terms"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tree.py:252 ./src/pyams_thesaurus/zmi/tree.py:341
-msgid "Cancel"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tree.py:267
-msgid "Import new terms"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tree.py:269
-msgid "Import thesaurus terms"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tree.py:280 ./src/pyams_thesaurus/zmi/tree.py:283
-msgid "-- automatic detection -- (if available)"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tree.py:327
-msgid "Export terms"
-msgstr ""
-
-#. Default: Export terms
-#: ./src/pyams_thesaurus/zmi/tree.py:338
-msgid "terms-export-button"
-msgstr ""
-
-#. Default: Export terms
-#: ./src/pyams_thesaurus/zmi/tree.py:357
-msgid "terms-export-title"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/tree.py:359
-msgid "Export thesaurus terms"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:106
-msgid "Thesaurus extracts"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:125
-msgid "Display extract terms"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:158
-msgid "Show/hide extract"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:204
-msgid "Another extract is already registered with this name!"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:233
-msgid "Add extract"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:249
-msgid "New thesaurus extract"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:258
-msgid "New extract properties"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:278
-#: ./src/pyams_thesaurus/zmi/extract.py:293
-msgid "Clone thesaurus extract"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:340
-#: ./src/pyams_thesaurus/zmi/extract.py:411
-#, python-format
-msgid "Thesaurus extract: {}"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:342
-msgid "Extract properties"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:381
-msgid "Extract roles"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/extract.py:413
-msgid "Extract terms"
-msgstr ""
-
-#: ./src/pyams_thesaurus/zmi/templates/terms-tree.pt:19
-msgid "Search term..."
+#: ./src/pyams_thesaurus/extension/html/zmi/__init__.py:38
+msgid "HTML description"
 msgstr ""

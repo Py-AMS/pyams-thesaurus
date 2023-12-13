@@ -22,9 +22,10 @@ from zope.interface import Interface, Invalid, implementer
 from pyams_form.ajax import ajax_form_config
 from pyams_form.field import Fields
 from pyams_form.interfaces import DISPLAY_MODE
-from pyams_form.interfaces.form import IAJAXFormRenderer, IAddForm, IDataExtractedEvent
+from pyams_form.interfaces.form import IAJAXFormRenderer, IAddForm, IDataExtractedEvent, IForm
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces.base import MANAGE_SYSTEM_PERMISSION, VIEW_SYSTEM_PERMISSION
+from pyams_skin.interfaces.view import IModalPage
 from pyams_skin.interfaces.viewlet import IBreadcrumbItem
 from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_table.interfaces import IColumn
@@ -39,7 +40,8 @@ from pyams_viewlet.viewlet import viewlet_config
 from pyams_zmi.form import AdminEditForm, AdminModalAddForm
 from pyams_zmi.helper.event import get_json_table_row_add_callback, \
     get_json_table_row_refresh_callback
-from pyams_zmi.interfaces import IAdminLayer
+from pyams_zmi.interfaces import IAdminLayer, TITLE_SPAN_BREAK
+from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IToolbarViewletManager
 from pyams_zmi.table import ActionColumn, TableElementEditor
@@ -51,6 +53,23 @@ from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 __docformat__ = 'restructuredtext'
 
 from pyams_thesaurus import _  # pylint: disable=ungrouped-imports
+
+
+@adapter_config(required=(IThesaurus, IAdminLayer, IForm),
+                provides=IFormTitle)
+def thesaurus_form_title(context, request, form):
+    """Thesaurus form title getter"""
+    return get_object_label(context, request, form)
+
+
+@adapter_config(required=(IThesaurus, IAdminLayer, IModalPage),
+                provides=IFormTitle)
+def thesaurus_modal_form_title(context, request, form):
+    """Thesaurus form title"""
+    manager = get_parent(context, IThesaurusManager)
+    return TITLE_SPAN_BREAK.format(
+        get_object_label(manager, request, form),
+        get_object_label(context, request, form))
 
 
 class IThesaurusAddForm(IAddForm):
@@ -71,13 +90,7 @@ def handle_new_thesaurus_data_extraction(event):
 class ThesaurusAddFormMixin:
     """Thesaurus add form mixin"""
 
-    @property
-    def title(self):
-        """Title getter"""
-        translate = self.request.localizer.translate
-        return '<small>{}</small><br />{}'.format(
-            get_object_label(self.context, self.request, self),
-            translate(_("New thesaurus")))
+    legend = _("New thesaurus properties")
 
 
 @adapter_config(required=(IThesaurusManager, IAdminLayer, IThesaurusAddForm),
@@ -119,7 +132,7 @@ class ThesaurusAddAction(ContextAddAction):
 class ThesaurusAddForm(ThesaurusAddFormMixin, AdminModalAddForm):
     """Thesaurus add form"""
 
-    legend = _("New thesaurus properties")
+    subtitle = _("New thesaurus")
 
     fields = Fields(IThesaurusInfo).select('name', 'title', 'subject', 'description',
                                            'language', 'creator', 'publisher', 'created')
@@ -155,7 +168,7 @@ class ThesaurusCloneColumn(ActionColumn):
 class ThesaurusCloneForm(ThesaurusAddFormMixin, AdminModalAddForm):
     """Thesaurus clone form"""
 
-    legend = _("Clone thesaurus")
+    subtitle = _("Create thesaurus clone")
 
     fields = Fields(IThesaurusInfo).select('name')
 
@@ -206,12 +219,6 @@ class ThesaurusPropertiesMenu(NavigationMenuItem):
                   context=IThesaurus, layer=IPyAMSLayer)
 class ThesaurusEditForm(AdminEditForm):
     """Thesaurus edit form"""
-
-    @property
-    def title(self):
-        """Title getter"""
-        translate = self.request.localizer.translate
-        return translate(_("Thesaurus: {}")).format(self.context.name)
 
     legend = _("Thesaurus properties")
 

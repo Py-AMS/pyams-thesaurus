@@ -21,7 +21,7 @@ from hypatia.interfaces import ICatalog
 from persistent import Persistent
 from pyramid.events import subscriber
 from zope.container.contained import Contained
-from zope.interface import alsoProvides, noLongerProvides
+from zope.interface import Interface, alsoProvides, noLongerProvides
 from zope.interface.interfaces import ComponentLookupError
 from zope.intid import IIntIds
 from zope.lifecycleevent import IObjectAddedEvent, IObjectModifiedEvent, IObjectMovedEvent
@@ -30,6 +30,7 @@ from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from zope.traversing.interfaces import ITraversable
 
 from pyams_catalog.utils import index_object, reindex_object, unindex_object
+from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces import IViewContextPermissionChecker
 from pyams_thesaurus.interfaces import MANAGE_THESAURUS_CONTENT_PERMISSION
 from pyams_thesaurus.interfaces.extension import IThesaurusTermExtension, \
@@ -47,9 +48,12 @@ from pyams_utils.timezone import tztime
 from pyams_utils.traversing import get_parent
 from pyams_utils.unicode import translate_string
 from pyams_utils.vocabulary import vocabulary_config
+from pyams_zmi.interfaces import IObjectLabel
 
 
 __docformat__ = 'restructuredtext'
+
+from pyams_thesaurus import _
 
 
 REVERSE_LINK_ATTRIBUTES = {
@@ -461,7 +465,24 @@ def handle_modified_term(event):
             reindex_object(event.object, thesaurus.catalog)
 
 
-@adapter_config(required=IThesaurusTerm, provides=INode)
+@adapter_config(required=IThesaurusTerm,
+                provides=IObjectLabel)
+def thesaurus_term_label(context):
+    """Thesaurus term label"""
+    return context.label
+
+
+@adapter_config(name='form-title',
+                required=(IThesaurusTerm, IPyAMSLayer, Interface),
+                provides=IObjectLabel)
+def thesaurus_term_long_label(context, request, view):
+    """Thesaurus term long label"""
+    translate = request.localizer.translate
+    return translate(_("Term: {}")).format(context.label)
+
+
+@adapter_config(required=IThesaurusTerm,
+                provides=INode)
 class ThesaurusTermTreeAdapter(ContextAdapter):
     """Thesaurus term tree node adapter"""
 
@@ -496,7 +517,8 @@ class ThesaurusTermTreeAdapter(ContextAdapter):
         return self.context.specifics
 
 
-@adapter_config(required=IThesaurusTerm, provides=IViewContextPermissionChecker)
+@adapter_config(required=IThesaurusTerm,
+                provides=IViewContextPermissionChecker)
 class ThesaurusTermPermissionChecker(ContextAdapter):
     """Thesaurus term permission checker"""
 

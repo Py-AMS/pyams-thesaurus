@@ -23,11 +23,13 @@ from pyams_form.interfaces import DISPLAY_MODE
 from pyams_form.interfaces.form import IAJAXFormRenderer
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
+from pyams_skin.interfaces.view import IModalEditForm
 from pyams_skin.schema.button import ActionButton
 from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_thesaurus.interfaces import MANAGE_THESAURUS_CONTENT_PERMISSION
 from pyams_thesaurus.interfaces.term import IThesaurusTerm
 from pyams_thesaurus.interfaces.thesaurus import IThesaurus
+from pyams_thesaurus.zmi.thesaurus import thesaurus_modal_form_title
 from pyams_thesaurus.zmi.tree import ThesaurusTermsTreeView
 from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
 from pyams_utils.factory import get_object_factory
@@ -36,10 +38,9 @@ from pyams_utils.traversing import get_parent
 from pyams_viewlet.viewlet import viewlet_config
 from pyams_zmi.form import AdminModalAddForm, AdminModalEditForm
 from pyams_zmi.interfaces import IAdminLayer
-from pyams_zmi.interfaces.form import IModalDisplayFormButtons, IModalEditFormButtons, \
+from pyams_zmi.interfaces.form import IFormTitle, IModalDisplayFormButtons, IModalEditFormButtons, \
     check_submit_button
 from pyams_zmi.interfaces.viewlet import IToolbarViewletManager
-
 
 __docformat__ = 'restructuredtext'
 
@@ -63,14 +64,7 @@ class ThesaurusTermAddAction(ContextAddAction):
 class ThesaurusTermAddForm(AdminModalAddForm):
     """Term add form"""
 
-    @property
-    def title(self):
-        """Title getter"""
-        translate = self.request.localizer.translate
-        return '<small>{}</small><br />{}'.format(
-            translate(_("Thesaurus: {}")).format(self.context.name),
-            translate(_("Create new term")))
-
+    subtitle = _("New term")
     legend = _("New term properties")
 
     fields = Fields(IThesaurusTerm).select('label', 'alt', 'definition', 'note', 'generic',
@@ -134,6 +128,14 @@ class ThesaurusTermAddFormRenderer(ContextRequestViewAdapter):
         }
 
 
+@adapter_config(required=(IThesaurusTerm, IAdminLayer, IModalEditForm),
+                provides=IFormTitle)
+def thesaurus_term_form_title(context, request, form):
+    """Thesaurus term form title getter"""
+    thesaurus = get_parent(context, IThesaurus)
+    return thesaurus_modal_form_title(thesaurus, request, form)
+
+
 class IThesaurusTermEditFormButtons(IModalEditFormButtons):
     """Thesaurus term edit form buttons interface"""
 
@@ -149,13 +151,9 @@ class ThesaurusTermEditForm(AdminModalEditForm):
     """Thesaurus term edit form"""
 
     @property
-    def title(self):
-        """Form title getter"""
+    def subtitle(self):
         translate = self.request.localizer.translate
-        thesaurus = get_parent(self.context, IThesaurus)
-        return '<small>{}</small><br />{}'.format(
-            translate(_("Thesaurus: {}")).format(thesaurus.name),
-            translate(_("Term: {}")).format(self.context.label))
+        return translate(_("Term: {}")).format(self.context.label)
 
     legend = _("Thesaurus term properties")
 

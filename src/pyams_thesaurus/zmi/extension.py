@@ -14,27 +14,31 @@
 
 This module defines base components for extensions management.
 """
+
 from pyams_thesaurus.interfaces import MANAGE_THESAURUS_CONTENT_PERMISSION
+from pyams_thesaurus.interfaces.term import IThesaurusTerm
 from pyams_thesaurus.interfaces.thesaurus import IThesaurus
+from pyams_utils.adapter import adapter_config
 from pyams_utils.traversing import get_parent
 from pyams_zmi.form import AdminModalEditForm
-
+from pyams_zmi.interfaces import IAdminLayer, TITLE_SPAN_BREAK
+from pyams_zmi.interfaces.form import IFormTitle
+from pyams_zmi.utils import get_object_label
 
 __docformat__ = 'restructuredtext'
-
-from pyams_thesaurus import _  # pylint: disable=ungrouped-imports
 
 
 class ThesaurusTermExtensionEditForm(AdminModalEditForm):
     """Thesaurus term extension properties edit form"""
 
-    @property
-    def title(self):
-        """Title getter"""
-        translate = self.request.localizer.translate
-        thesaurus = get_parent(self.context, IThesaurus)
-        return '<small>{}</small><br />{}'.format(
-            translate(_("Thesaurus: {}")).format(thesaurus.name),
-            translate(_("Term: {}")).format(self.context.label))
-
     _edit_permission = MANAGE_THESAURUS_CONTENT_PERMISSION
+
+
+@adapter_config(required=(IThesaurusTerm, IAdminLayer, ThesaurusTermExtensionEditForm),
+                provides=IFormTitle)
+def thesaurus_term_extension_form_title(context, request, form):
+    """Thesaurus term extension form title"""
+    thesaurus = get_parent(context, IThesaurus)
+    return TITLE_SPAN_BREAK.format(
+        get_object_label(thesaurus, request, form),
+        get_object_label(context, request, form, name='form-title'))

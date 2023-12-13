@@ -21,6 +21,7 @@ from zope.interface import Interface
 
 from pyams_form.ajax import ajax_form_config
 from pyams_form.field import Fields
+from pyams_form.interfaces.form import IForm
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
 from pyams_security.interfaces.base import MANAGE_SYSTEM_PERMISSION, VIEW_SYSTEM_PERMISSION
@@ -29,7 +30,6 @@ from pyams_skin.interfaces.viewlet import IBreadcrumbItem
 from pyams_table.interfaces import IColumn, IValues
 from pyams_thesaurus.interfaces.thesaurus import IThesaurusManager
 from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
-from pyams_utils.fanstatic import ExternalResource
 from pyams_utils.registry import get_utility, query_utility
 from pyams_utils.url import absolute_url
 from pyams_viewlet.manager import viewletmanager_config
@@ -37,6 +37,7 @@ from pyams_viewlet.viewlet import viewlet_config
 from pyams_zmi.form import AdminEditForm
 from pyams_zmi.helper.container import delete_container_element
 from pyams_zmi.interfaces import IAdminLayer, IObjectLabel
+from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IControlPanelMenu, IMenuHeader, IPropertiesMenu, \
     ISiteManagementMenu
@@ -44,7 +45,6 @@ from pyams_zmi.table import NameColumn, Table, TableAdminView, TableElementEdito
 from pyams_zmi.utils import get_object_label
 from pyams_zmi.zmi.viewlet.breadcrumb import AdminLayerBreadcrumbItem
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
-
 
 __docformat__ = 'restructuredtext'
 
@@ -69,6 +69,13 @@ thesaurus_js = Resource(library, 'js/thesaurus.js',
 #
 
 THESAURUS_MANAGER_LABEL = _("Thesaurus container")
+
+
+@adapter_config(required=(IThesaurusManager, IAdminLayer, IForm),
+                provides=IFormTitle)
+def thesaurus_manager_form_title(context, request, form):
+    """Thesaurus manager form title"""
+    return get_object_label(context, request, form)
 
 
 @viewlet_config(name='thesaurus-manager.menu',
@@ -217,11 +224,6 @@ class ThesaurusManagerPropertiesMenu(NavigationMenuItem):
                   permission=MANAGE_SYSTEM_PERMISSION)
 class ThesaurusManagerPropertiesEditForm(AdminEditForm):
     """Thesaurus manager properties edit form"""
-
-    @property
-    def title(self):
-        """Title getter"""
-        return get_object_label(self.context, request=self.request)
 
     legend = _("Thesaurus manager properties")
 

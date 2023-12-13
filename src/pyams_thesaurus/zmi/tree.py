@@ -30,6 +30,7 @@ from pyams_form.interfaces.form import IAJAXFormRenderer
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
 from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
+from pyams_skin.interfaces.view import IModalPage
 from pyams_skin.schema.button import CloseButton, SubmitButton
 from pyams_skin.viewlet.menu import MenuItem
 from pyams_template.template import template_config
@@ -38,19 +39,22 @@ from pyams_thesaurus.interfaces import MANAGE_THESAURUS_CONTENT_PERMISSION, \
 from pyams_thesaurus.interfaces.extension import IThesaurusTermExtension
 from pyams_thesaurus.interfaces.loader import IThesaurusExporter, IThesaurusExporterConfiguration, \
     IThesaurusLoader, IThesaurusUpdaterConfiguration
-from pyams_thesaurus.interfaces.thesaurus import IThesaurus, IThesaurusExtracts
+from pyams_thesaurus.interfaces.thesaurus import IThesaurus, IThesaurusExtracts, IThesaurusManager
 from pyams_thesaurus.loader.config import ThesaurusExporterConfiguration, \
     ThesaurusUpdaterConfiguration
 from pyams_thesaurus.zmi.interfaces import IThesaurusTermsTreeMenu
 from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
 from pyams_utils.interfaces.tree import INode, ITree
 from pyams_utils.registry import get_utility, query_utility
+from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_viewlet.manager import viewletmanager_config
 from pyams_viewlet.viewlet import ViewContentProvider, viewlet_config
 from pyams_zmi.form import AdminModalAddForm
-from pyams_zmi.interfaces import IAdminLayer, ICompositeView
+from pyams_zmi.interfaces import IAdminLayer, ICompositeView, TITLE_SPAN_BREAK
+from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.viewlet import IContextActionsDropdownMenu, IContentManagementMenu
+from pyams_zmi.utils import get_object_label
 from pyams_zmi.view import CompositeAdminView
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 
@@ -258,15 +262,8 @@ class IThesaurusImportFormButtons(Interface):
 class ThesaurusImportForm(AdminModalAddForm):
     """Thesaurus import form"""
 
-    @property
-    def title(self):
-        """Title getter"""
-        translate = self.request.localizer.translate
-        return '<small>{}</small><br />{}'.format(
-            translate(_("Thesaurus: {}")).format(self.context.name),
-            translate(_("Import new terms")))
-
-    legend = _("Import thesaurus terms")
+    subtitle = _("Import new terms")
+    legend = _("Terms import settings")
 
     fields = Fields(IThesaurusUpdaterConfiguration).select('clear', 'conflict_suffix', 'data',
                                                            'format', 'import_synonyms',
@@ -348,15 +345,8 @@ class IThesaurusExportFormButtons(Interface):
 class ThesaurusExportForm(AdminModalAddForm):
     """Thesaurus export form"""
 
-    @property
-    def title(self):
-        """Title getter"""
-        translate = self.request.localizer.translate
-        return '<small>{}</small><br />{}'.format(
-            translate(_("Thesaurus: {}")).format(self.context.name),
-            translate(_("terms-export-title", default="Export terms")))
-
-    legend = _("Export thesaurus terms")
+    subtitle = _("terms-export-title", default="Export terms")
+    legend = _("Terms export settings")
 
     fields = Fields(IThesaurusExporterConfiguration)
     buttons = Buttons(IThesaurusExportFormButtons)

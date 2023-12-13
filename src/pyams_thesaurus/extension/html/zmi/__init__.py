@@ -34,6 +34,7 @@ from pyams_thesaurus import _
 class ThesaurusTermHTMLDescriptionEditForm(ThesaurusTermExtensionEditForm):
     """Thesaurus term HTML description edit form"""
 
+    subtitle = _("Associated HTML description")
     legend = _("HTML description")
     modal_class = 'modal-xl'
 

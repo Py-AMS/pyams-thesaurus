@@ -33,6 +33,7 @@ from pyams_form.interfaces.form import IAJAXFormRenderer, IAddForm, IDataExtract
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
 from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
+from pyams_skin.interfaces.view import IModalPage
 from pyams_skin.interfaces.viewlet import IContentSuffixViewletManager
 from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_table.interfaces import IColumn, IValues
@@ -41,6 +42,7 @@ from pyams_thesaurus.interfaces import ADMIN_THESAURUS_PERMISSION, \
     MANAGE_THESAURUS_EXTRACT_PERMISSION
 from pyams_thesaurus.interfaces.thesaurus import IThesaurus, IThesaurusExtract, \
     IThesaurusExtractInfo, IThesaurusExtractRoles, IThesaurusExtracts, IThesaurusManager
+from pyams_thesaurus.zmi.thesaurus import thesaurus_modal_form_title
 from pyams_thesaurus.zmi.tree import ThesaurusTermsView
 from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
 from pyams_utils.interfaces.tree import INode, ITree
@@ -52,12 +54,11 @@ from pyams_zmi.form import AdminModalAddForm, AdminModalDisplayForm, AdminModalE
 from pyams_zmi.helper.container import delete_container_element
 from pyams_zmi.helper.event import get_json_table_row_refresh_callback
 from pyams_zmi.interfaces import IAdminLayer, ICompositeView
+from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IToolbarViewletManager
 from pyams_zmi.table import ActionColumn, JsActionColumn, NameColumn, Table, TableElementEditor, \
     TableView, TrashColumn
-from pyams_zmi.utils import get_object_label
-
 
 __docformat__ = 'restructuredtext'
 
@@ -239,15 +240,7 @@ class ThesaurusExtractAddAction(ContextAddAction):
 class ThesaurusExtractAddFormMixin:
     """Thesaurus extract add form mixin"""
 
-    @property
-    def title(self):
-        """Add form title getter"""
-        translate = self.request.localizer.translate
-        thesaurus = get_parent(self.context, IThesaurus)
-        return '<small>{}</small><br />{}'.format(
-            translate(_("Thesaurus: {}")).format(
-                get_object_label(thesaurus, self.request, self)),
-            translate(_("New thesaurus extract")))
+    subtitle = _("New thesaurus extract")
 
 
 @ajax_form_config(name='add-extract.html',
@@ -291,7 +284,7 @@ class ThesaurusExtractCloneColumn(ActionColumn):
 class ThesaurusExtractCloneForm(ThesaurusExtractAddFormMixin, AdminModalAddForm):
     """Thesaurus extract clone form"""
 
-    legend = _("Clone thesaurus extract")
+    legend = _("New extract properties")
 
     fields = Fields(IThesaurusExtract).select('name')
 
@@ -331,14 +324,9 @@ class ThesaurusExtractEditForm(AdminModalEditForm):
     """Thesaurus extract edit form"""
 
     @property
-    def title(self):
-        """Form title getter"""
+    def subtitle(self):
         translate = self.request.localizer.translate
-        thesaurus = get_parent(self.context, IThesaurus)
-        return '<small>{}</small><br />{}'.format(
-            translate(_("Thesaurus: {}")).format(
-                get_object_label(thesaurus, self.request, self)),
-            translate(_("Thesaurus extract: {}")).format(self.context.name))
+        return translate(_("Thesaurus extract: {}")).format(self.context.name)
 
     legend = _("Extract properties")
 
@@ -349,6 +337,14 @@ class ThesaurusExtractEditForm(AdminModalEditForm):
         name = self.widgets.get('name')
         if name is not None:
             name.mode = DISPLAY_MODE
+
+
+@adapter_config(required=(IThesaurusExtract, IAdminLayer, IModalPage),
+                provides=IFormTitle)
+def thesaurus_extract_form_title(context, request, form):
+    """Thesaurus extract form title"""
+    thesaurus = get_parent(context, IThesaurus)
+    return thesaurus_modal_form_title(thesaurus, request, form)
 
 
 @adapter_config(required=(IThesaurusExtract, IAdminLayer, ThesaurusExtractEditForm),
@@ -402,14 +398,9 @@ class ThesaurusExtractTermsView(AdminModalDisplayForm):
     """Thesaurus extract terms view"""
 
     @property
-    def title(self):
-        """Title getter"""
+    def subtitle(self):
         translate = self.request.localizer.translate
-        thesaurus = get_parent(self.context, IThesaurus)
-        return '<small>{}</small><br />{}'.format(
-            translate(_("Thesaurus: {}")).format(
-                get_object_label(thesaurus, self.request, self)),
-            translate(_("Thesaurus extract: {}")).format(self.context.name))
+        return translate(_("Thesaurus extract: {}")).format(self.context.name)
 
     legend = _("Extract terms")
 

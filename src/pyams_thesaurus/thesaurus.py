@@ -24,10 +24,9 @@ from hypatia.text.parsetree import QueryError
 from persistent import Persistent
 from pyramid.events import subscriber
 from transaction.interfaces import ITransactionManager
-from zope.componentvocabulary.vocabulary import UtilityVocabulary
 from zope.container.btree import BTreeContainer
 from zope.container.contained import Contained
-from zope.interface import implementer
+from zope.interface import Interface, implementer
 from zope.lifecycleevent import IObjectAddedEvent, IObjectRemovedEvent
 from zope.location import locate
 from zope.location.interfaces import ISublocations
@@ -39,6 +38,7 @@ from pyams_catalog.index import FieldIndexWithInterface, TextIndexWithInterface
 from pyams_catalog.nltk import NltkStemmedTextProcessor
 from pyams_catalog.query import CatalogResultSet, or_
 from pyams_catalog.utils import index_object, unindex_object
+from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces import IDefaultProtectionPolicy, IRolesPolicy, \
     IViewContextPermissionChecker
 from pyams_security.property import RolePrincipalsFieldProperty
@@ -62,7 +62,6 @@ from pyams_utils.unicode import translate_string
 from pyams_utils.url import absolute_url
 from pyams_utils.vocabulary import LocalUtilitiesVocabulary, vocabulary_config
 from pyams_zmi.interfaces import IObjectLabel
-
 
 __docformat__ = 'restructuredtext'
 
@@ -342,11 +341,12 @@ class Thesaurus(ProtectedObjectMixin, Persistent, Contained):
         """Delete thesaurus"""
 
 
-@adapter_config(required=IThesaurus,
+@adapter_config(required=(IThesaurus, IPyAMSLayer, Interface),
                 provides=IObjectLabel)
-def thesaurus_label(context):
+def thesaurus_label(context, request, layer):
     """Thesaurus label getter"""
-    return context.title
+    translate = request.localizer.translate
+    return translate(_("Thesaurus: {}")).format(context.title)
 
 
 @implementer(IThesaurusRoles)
