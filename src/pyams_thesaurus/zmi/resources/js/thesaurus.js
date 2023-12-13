@@ -148,7 +148,7 @@ const thesaurus = {
                         if (extension.active) {
                             $('<i></i>')
                                 .addClass(extension.icon)
-                                .addClass('extension hint mx-2 float-right mouse-pointer')
+                                .addClass('extension hint mx-2 my-1 float-right mouse-pointer')
                                 .addClass('opaque text-primary')
                                 .attr('data-ams-url', extension.view)
                                 .attr('data-toggle', 'modal')
@@ -157,7 +157,7 @@ const thesaurus = {
                         } else {
                             $('<i></i>')
                                 .addClass(extension.icon)
-                                .addClass('extension hint mx-2 float-right mouse-pointer')
+                                .addClass('extension hint mx-2 my-1 float-right mouse-pointer')
                                 .addClass('text-secondary')
                                 .attr('data-ams-click-handler', 'MyAMS.thesaurus.tree.switchExtension')
                                 .attr('data-ams-extension-name', extension.name)
@@ -323,7 +323,7 @@ const thesaurus = {
                     source.tooltip('hide');
                     source.replaceWith($('<i></i>')
                         .addClass(result.icon)
-                        .addClass('extension hint mx-2 float-right')
+                        .addClass('extension hint mx-2 my-1 float-right')
                         .addClass('opaque text-primary')
                         .attr('data-ams-url', result.view)
                         .attr('data-toggle', 'modal')
