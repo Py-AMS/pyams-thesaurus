@@ -19,7 +19,6 @@ selection.
 import json
 import re
 
-from pyramid.decorator import reify
 from zope.component import queryMultiAdapter
 from zope.interface import directlyProvides, implementer_only
 from zope.schema.fieldproperty import FieldProperty
@@ -32,6 +31,7 @@ from pyams_form.interfaces import IDataConverter
 from pyams_form.interfaces.widget import IFieldWidget
 from pyams_form.widget import FieldWidget
 from pyams_layer.interfaces import IFormLayer
+from pyams_thesaurus.interfaces import REST_TERMS_SEARCH_PATH, REST_TERMS_SEARCH_ROUTE
 from pyams_thesaurus.interfaces.term import IThesaurusTerm, STATUS_ARCHIVED
 from pyams_thesaurus.interfaces.thesaurus import IThesaurus
 from pyams_thesaurus.schema import IThesaurusTermField, IThesaurusTermsListField
@@ -40,12 +40,11 @@ from pyams_thesaurus.zmi.interfaces import IThesaurusTermWidget, IThesaurusTerms
 from pyams_utils.adapter import adapter_config
 from pyams_utils.registry import query_utility
 from pyams_utils.traversing import get_parent
-
+from pyams_utils.zodb import volatile_property
 
 __docformat__ = 'restructuredtext'
 
 from pyams_thesaurus import _  # pylint: disable=ungrouped-imports
-from pyams_utils.zodb import volatile_property
 
 
 class SimpleThesaurusTerm(SimpleTerm):
@@ -169,8 +168,13 @@ class ThesaurusTermDataConverter(SequenceDataConverter):
 class ThesaurusTermWidget(ThesaurusWidgetMixin, SelectWidget):
     """Thesaurus term widget"""
 
-    ajax_url = '/api/thesaurus/terms'
     placeholder = _("No selected term")
+
+    @property
+    def ajax_url(self):
+        """AJAX URL getter"""
+        return self.request.registry.settings.get(f'{REST_TERMS_SEARCH_ROUTE}_route.path',
+                                                  REST_TERMS_SEARCH_PATH)
 
     _thesaurus_name = FieldProperty(IThesaurusTermWidget['thesaurus_name'])
     extract_name = FieldProperty(IThesaurusTermWidget['extract_name'])
@@ -225,10 +229,14 @@ class ThesaurusTermsListDataConverter(SequenceDataConverter):
 class ThesaurusTermsListWidget(ThesaurusWidgetMixin, SelectWidget):
     """Thesaurus terms list widget"""
 
-    ajax_url = '/api/thesaurus/terms'
     placeholder = _("No selected term")
-
     multiple = 'multiple'
+
+    @property
+    def ajax_url(self):
+        """AJAX URL getter"""
+        return self.request.registry.settings.get(f'{REST_TERMS_SEARCH_ROUTE}_route.path',
+                                                  REST_TERMS_SEARCH_PATH)
 
     _thesaurus_name = FieldProperty(IThesaurusTermsListWidget['thesaurus_name'])
     extract_name = FieldProperty(IThesaurusTermsListWidget['extract_name'])

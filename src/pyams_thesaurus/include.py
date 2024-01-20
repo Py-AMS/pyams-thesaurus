@@ -21,10 +21,8 @@ from pyams_security.interfaces.base import ROLE_ID
 from pyams_security.interfaces.names import ADMIN_USER_ID, SYSTEM_ADMIN_ROLE
 from pyams_thesaurus.interfaces import ADMIN_THESAURUS_PERMISSION, CREATE_THESAURUS_PERMISSION, \
     MANAGE_THESAURUS_CONTENT_PERMISSION, MANAGE_THESAURUS_EXTRACT_PERMISSION, \
-    REST_EXTRACTS_GETTER_ROUTE, REST_TERMS_SEARCH_ROUTE, THESAURUS_ADMIN_ROLE, \
-    THESAURUS_EXTRACT_MANAGER_ROLE, \
-    THESAURUS_MANAGER_ROLE
-
+    REST_EXTRACTS_GETTER_PATH, REST_EXTRACTS_GETTER_ROUTE, REST_TERMS_SEARCH_PATH, REST_TERMS_SEARCH_ROUTE, \
+    THESAURUS_ADMIN_ROLE, THESAURUS_EXTRACT_MANAGER_ROLE, THESAURUS_MANAGER_ROLE
 
 __docformat__ = 'restructuredtext'
 
@@ -105,11 +103,11 @@ def include_package(config):
 
     # register REST API routes
     config.add_route(REST_TERMS_SEARCH_ROUTE,
-                     config.registry.settings.get(f'{REST_TERMS_SEARCH_ROUTE}_route',
-                                                  '/api/thesaurus/terms'))
+                     config.registry.settings.get(f'{REST_TERMS_SEARCH_ROUTE}_route.path',
+                                                  REST_TERMS_SEARCH_PATH))
     config.add_route(REST_EXTRACTS_GETTER_ROUTE,
-                     config.registry.settings.get(f'{REST_EXTRACTS_GETTER_ROUTE}_route',
-                                                  '/api/thesaurus/extracts'))
+                     config.registry.settings.get(f'{REST_EXTRACTS_GETTER_ROUTE}_route.path',
+                                                  REST_EXTRACTS_GETTER_PATH))
 
     # test Venusian scans
     ignored = []

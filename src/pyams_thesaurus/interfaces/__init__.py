@@ -39,11 +39,17 @@ THESAURUS_EXTRACT_MANAGER_ROLE = 'pyams_thesaurus.ExtractManager'
 '''Thesaurus extract manager is allowed to manage content of a thesaurus extract'''
 
 
-REST_TERMS_SEARCH_ROUTE = 'thesaurus.rest.terms'
-'''Thesaurus terms search route'''
+REST_TERMS_SEARCH_ROUTE = 'pyams_thesaurus.rest.terms'
+'''REST thesaurus terms search API route name'''
 
-REST_EXTRACTS_GETTER_ROUTE = 'thesaurus.rest.extracts'
-'''Thesaurus extracts getter route'''
+REST_TERMS_SEARCH_PATH = '/api/thesaurus/terms'
+'''REST thesaurus terms search API default path'''
+
+REST_EXTRACTS_GETTER_ROUTE = 'pyams_thesaurus.rest.extracts'
+'''REST thesaurus extracts getter API route name'''
+
+REST_EXTRACTS_GETTER_PATH = '/api/thesaurus/extracts'
+'''REST thesaurus extracts getter API default path'''
 
 
 THESAURUS_NAMES_VOCABULARY = 'pyams_thesaurus.thesaurus'
