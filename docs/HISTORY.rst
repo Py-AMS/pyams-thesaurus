@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.1.0
+-----
+ - updated thesaurus extracts interface
+
 2.0.2
 -----
  - updated REST API route name and path configuration setting name
