@@ -27,6 +27,7 @@ from transaction.interfaces import ITransactionManager
 from zope.container.btree import BTreeContainer
 from zope.container.contained import Contained
 from zope.interface import Interface, implementer
+from zope.intid.interfaces import IIntIds
 from zope.lifecycleevent import IObjectAddedEvent, IObjectRemovedEvent
 from zope.location import locate
 from zope.location.interfaces import ISublocations
@@ -457,13 +458,48 @@ class ThesaurusExtract(ProtectedObjectMixin, Persistent, Contained):
     abbreviation = FieldProperty(IThesaurusExtract['abbreviation'])
     color = FieldProperty(IThesaurusExtract['color'])
 
-    def add_term(self, term):
-        """Add term to extract"""
-        term.add_extract(self)
+    terms = FieldProperty(IThesaurusExtract['terms'])
 
-    def remove_term(self, term):
+    def __len__(self):
+        return len(self.terms or ())
+
+    @property
+    def terms_labels(self):
+        """Terms labels getter"""
+        yield from [
+            term.label
+            for term in self.terms or ()
+        ]
+
+    @property
+    def terms_ids(self):
+        """Terms IDs getter"""
+        intids = query_utility(IIntIds)
+        yield from [
+            intids.register(term)
+            for term in self.terms or ()
+        ]
+
+    def add_term(self, term, check=True):
+        """Add term to extract"""
+        term.add_extract(self, check)
+        terms = self.terms or set()
+        if term not in terms:
+            terms.add(term)
+            for subterm in term.get_all_children(with_synonyms=True):
+                terms.add(subterm)
+            self.terms = terms
+
+    def remove_term(self, term, check=True):
         """Remove term from extract"""
-        term.remove_extract(self)
+        term.remove_extract(self, check)
+        terms = self.terms or set()
+        if term in terms:
+            terms.remove(term)
+            for subterm in term.get_all_children(with_synonyms=True):
+                if subterm in terms:
+                    terms.remove(subterm)
+            self.terms = terms
 
     def get_nodes(self, term, result, subnodes=None, request=None):
         """Extract nodes getter"""
@@ -484,6 +520,13 @@ class ThesaurusExtract(ProtectedObjectMixin, Persistent, Contained):
                 if subnodes and (node.context.label in subnodes):
                     nodes = result[-1]['subnodes'] = []
                     self.get_nodes(node.context, nodes, subnodes, request)
+
+
+@adapter_config(required=(IThesaurusExtract, IPyAMSLayer, Interface),
+                provides=IObjectLabel)
+def thesaurus_extract_label(context, request, layer):
+    """Thesaurus extract label getter"""
+    return context.name
 
 
 @adapter_config(required=IThesaurusExtract,

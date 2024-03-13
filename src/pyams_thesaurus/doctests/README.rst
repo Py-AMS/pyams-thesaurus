@@ -7,7 +7,7 @@ Introduction
 
 This package is composed of a set of utility functions, usable into any Pyramid application.
 
-    >>> from pprint import pprint
+    >>> from pprint import pprint, pformat
     >>> from pyramid.testing import setUp, tearDown, DummyRequest
     >>> config = setUp(hook_zca=True)
     >>> config.registry.settings['zodbconn.uri'] = 'memory://'
@@ -407,14 +407,39 @@ Updating a term's extracts also updates it's synonyms extracts:
     >>> [t.extracts for t in term.used_for]
     [set()]
 
-    >>> term.add_extract(extract, check=False)
+An extract length is the length of it's terms set:
+
+    >>> len(extract)
+    0
+    >>> extract.add_term(term, check=False)
+    >>> len(extract)
+    2
+    >>> sorted(list(extract.terms_labels))
+    ['Base de loisir', 'Base de plein air et de loisir']
+    >>> len(list(extract.terms_ids))
+    2
+
+As you can see, term synonyms are also added to extract terms!
+
     >>> term.extracts
     {'Thesaurus extract'}
+
+    >>> term in extract.terms
+    True
+    >>> term.label in extract.terms_labels
+    True
+
+    >>> nodes = []
+    >>> extract.get_nodes(term, nodes)
+    >>> pprint(nodes)
+    []
 
     >>> [t.extracts for t in term.used_for]
     [{'Thesaurus extract'}]
 
-    >>> term.remove_extract(extract, check=False)
+    >>> extract.remove_term(term, check=False)
+    >>> len(extract.terms)
+    0
     >>> [t.extracts for t in term.used_for]
     [set()]
 

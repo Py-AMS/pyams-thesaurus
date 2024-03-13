@@ -21,7 +21,7 @@ from zope.container.constraints import contains
 from zope.container.interfaces import IContainer
 from zope.interface import Attribute, Interface
 from zope.location.interfaces import IContained
-from zope.schema import Bool, Choice, Date, List, Object, Text, TextLine
+from zope.schema import Bool, Choice, Date, List, Object, Set, Text, TextLine
 
 from pyams_i18n.interfaces import BASE_LANGUAGES_VOCABULARY_NAME
 from pyams_security.schema import PrincipalsSetField
@@ -194,10 +194,10 @@ class IThesaurusExtractInfo(Interface):
                        description=_("A color associated with this extract"),
                        required=True)
 
-    def add_term(self, term):
+    def add_term(self, term, check=True):
         """Add a term to this extract"""
 
-    def remove_term(self, term):
+    def remove_term(self, term, check=True):
         """Remove a term from this extract"""
 
     def get_nodes(self, term, result, subnodes=None, request=None):
@@ -216,6 +216,15 @@ class IThesaurusExtractRoles(Interface):
 
 class IThesaurusExtract(IThesaurusExtractInfo, IAttributeAnnotatable):
     """Thesaurus extract info"""
+
+    terms = Set(title=_("Extract terms"),
+                description=_("List of terms associated with this extract"),
+                value_type=Object(schema=IThesaurusTerm),
+                required=False)
+
+    terms_labels = Attribute("Terms labels iterator")
+
+    terms_ids = Attribute("Terms IDs iterator")
 
 
 class IThesaurusExtracts(IContainer):

@@ -251,7 +251,7 @@ class ThesaurusExtractAddForm(ThesaurusExtractAddFormMixin, AdminModalAddForm):
 
     legend = _("New extract properties")
 
-    fields = Fields(IThesaurusExtract)
+    fields = Fields(IThesaurusExtract).omit('terms')
     content_factory = IThesaurusExtract
 
     def add(self, obj):
@@ -292,14 +292,11 @@ class ThesaurusExtractCloneForm(ThesaurusExtractAddFormMixin, AdminModalAddForm)
         return copy(self.context)
 
     def add(self, obj):
-        source = IThesaurusExtract(self.context).name
-        target = obj.name
         extracts = IThesaurusExtracts(self.context.__parent__)
-        extracts[target] = obj
-        thesaurus = get_parent(obj, IThesaurus)
-        for term in thesaurus.terms:
-            if source in term.extracts:
-                term.add_extract(target)
+        extracts[obj.name] = obj
+        source = IThesaurusExtract(self.context)
+        for term in source.terms or ():
+            obj.add_term(term)
 
 
 #
@@ -330,7 +327,7 @@ class ThesaurusExtractEditForm(AdminModalEditForm):
 
     legend = _("Extract properties")
 
-    fields = Fields(IThesaurusExtract)
+    fields = Fields(IThesaurusExtract).omit('terms')
 
     def update_widgets(self, prefix=None):
         super().update_widgets(prefix)
