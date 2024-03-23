@@ -14,12 +14,13 @@
   }
 
   i.extract-checker {
-    cursor: pointer;
+    &:not(.disabled) {
+      cursor: pointer;
+    }
   }
 
   i.extension {
-    cursor: pointer;
-    transform: scale(1.5);
+    transform: scale(1.1);
   }
 }
 

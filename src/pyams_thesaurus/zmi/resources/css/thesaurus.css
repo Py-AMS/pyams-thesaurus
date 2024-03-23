@@ -9,12 +9,11 @@
 .tree .archived .term {
   text-decoration: line-through; }
 
-.tree i.extract-checker {
+.tree i.extract-checker:not(.disabled) {
   cursor: pointer; }
 
 .tree i.extension {
-  cursor: pointer;
-  transform: scale(1.5); }
+  transform: scale(1.1); }
 
 .terms-widget header.active {
   color: var(--body-bg);
