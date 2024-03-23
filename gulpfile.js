@@ -32,13 +32,13 @@ task('js', function() {
 })
 
 exports.sass_dev = task('sass_dev');
-exports.sass_prod = task('sass');
+exports.sass_prod = task('sass_prod');
 exports.minify_js = task('js');
 
 
 exports.default = function() {
     watch('src/pyams_thesaurus/zmi/resources/sass/*.scss',
-        parallel('sass_dev', 'sass'));
+        parallel('sass_dev', 'sass_prod'));
     watch('src/pyams_thesaurus/zmi/resources/js/thesaurus.js',
         parallel('js'));
 };
