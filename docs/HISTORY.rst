@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.1.2
+-----
+ - updated terms tree module resources
+ - updated CSS
+ - updated Gulp task names
+
 2.1.1
 -----
  - updated doctests
