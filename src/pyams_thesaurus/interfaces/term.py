@@ -74,6 +74,13 @@ class IThesaurusTerm(IContained, IAttributeAnnotatable):
                                  "below..."),
                    required=False)
 
+    public_label = TextLine(title=_("Public label"),
+                            description=_("If not empty, this label will be displayed in "
+                                          "front-office instead of base term label"),
+                            required=False)
+
+    public_title = Attribute("Term public title")
+
     definition = Text(title=_("Definition"),
                       description=_("Long definition, mostly for complicated terms"),
                       required=False)

@@ -87,6 +87,7 @@ class ThesaurusTerm(Persistent, Contained):
 
     label = FieldProperty(IThesaurusTerm['label'])
     alt = FieldProperty(IThesaurusTerm['alt'])
+    public_label = FieldProperty(IThesaurusTerm['public_label'])
     definition = FieldProperty(IThesaurusTerm['definition'])
     note = FieldProperty(IThesaurusTerm['note'])
     _generic = FieldProperty(IThesaurusTerm['generic'])
@@ -103,11 +104,12 @@ class ThesaurusTerm(Persistent, Contained):
     _created = FieldProperty(IThesaurusTerm['created'])
     _modified = FieldProperty(IThesaurusTerm['modified'])
 
-    def __init__(self, label, alt=None, definition=None, note=None,  # pylint: disable=too-many-arguments,too-many-instance-attributes
+    def __init__(self, label, alt=None, public_label=None, definition=None, note=None,  # pylint: disable=too-many-arguments,too-many-instance-attributes
                  generic=None, specifics=None, associations=None,
                  usage=None, used_for=None, created=None, modified=None):
         self.label = label
         self.alt = alt
+        self.public_label = public_label
         self.definition = definition
         self.note = note
         self.generic = generic
@@ -150,6 +152,10 @@ class ThesaurusTerm(Persistent, Contained):
             label = self.label
             terms = []
         return label + (' [ {0} ]'.format(', '.join(terms)) if terms else '')
+
+    @property
+    def public_title(self):
+        return self.public_label or self.alt or self.label
 
     @property
     def generic(self):
