@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.1.3
+-----
+ - added public label property to thesaurus terms
+
 2.1.2
 -----
  - updated terms tree module resources
