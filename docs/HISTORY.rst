@@ -3,6 +3,7 @@ Changelog
 
 2.1.4
 -----
+ - updated lxml parser configuration to avoid XXE vulnerability
  - updated extract terms tree widget template
 
 2.1.3
