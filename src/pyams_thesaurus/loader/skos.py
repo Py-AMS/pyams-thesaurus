@@ -52,7 +52,8 @@ class SKOSThesaurusLoaderHandler(XMLThesaurusLoaderHandler):
             encoding = configuration.encoding
         if (not encoding) and isinstance(data, str):
             encoding = chardet.detect(data[:1000]).get('encoding', 'utf-8')
-        parser = etree.XMLParser(ns_clean=True, recover=True, encoding=encoding)
+        parser = etree.XMLParser(ns_clean=True, recover=True,
+                                 encoding=encoding, resolve_entities=False)
         xml = etree.parse(data, parser=parser)
         root = xml.getroot()
         # check thesaurus scheme
