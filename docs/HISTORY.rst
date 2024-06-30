@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.1.4
+-----
+ - updated extract terms tree widget template
+
 2.1.3
 -----
  - added public label property to thesaurus terms
