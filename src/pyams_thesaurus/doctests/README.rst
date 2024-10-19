@@ -56,13 +56,17 @@ NLTK library must first be initialized before using text indexes:
     ...     pass
     >>> status1
     True
-    >>> with capture_all(nltk.download, 'snowball_data') as (status2, log2, errors2):
+    >>> with capture_all(nltk.download, 'punkt_tab') as (status2, log2, errors2):
     ...     pass
     >>> status2
     True
-    >>> with capture_all(nltk.download, 'stopwords') as (status3, log3, errors3):
+    >>> with capture_all(nltk.download, 'snowball_data') as (status3, log3, errors3):
     ...     pass
     >>> status3
+    True
+    >>> with capture_all(nltk.download, 'stopwords') as (status4, log4, errors4):
+    ...     pass
+    >>> status4
     True
 
 
