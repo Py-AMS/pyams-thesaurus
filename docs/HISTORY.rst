@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.0
+-----
+ - added helper to update term label without changing it's internal ID
+ - added support for Python 3.12
+
 2.1.4
 -----
  - updated lxml parser configuration to avoid XXE vulnerability
