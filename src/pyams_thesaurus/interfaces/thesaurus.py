@@ -100,6 +100,9 @@ class IThesaurusInfo(IThesaurusDescription):
     def reset_top_terms(self):
         """Reset thesaurus top terms"""
 
+    def replace_term(self, old_label, term):
+        """Replace term label"""
+        
     def remove_term(self, term):
         """Remove specified thesaurus term"""
 

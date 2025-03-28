@@ -226,6 +226,14 @@ class Thesaurus(ProtectedObjectMixin, Persistent, Contained):
             return self.top_terms
         return [term for term in self.top_terms if extract in term.extracts]
 
+    def replace_term(self, old_label, term):
+        """Replace term with old label with new term"""
+        terms = self.terms
+        locate(term, None, None)
+        del terms[old_label]  # pylint: disable=unsupported-delete-operation
+        locate(term, terms, term.label)
+        terms[term.label] = term  # pylint: disable=unsupported-assignment-operation
+    
     def remove_term(self, term):
         """Remove specified term from thesaurus"""
         if term.label not in self.terms:

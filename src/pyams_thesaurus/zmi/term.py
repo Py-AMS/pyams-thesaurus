@@ -15,6 +15,7 @@
 This module provides all terms related management components.
 """
 from zope.interface import alsoProvides
+from zope.location import locate
 
 from pyams_form.ajax import ajax_form_config
 from pyams_form.button import Buttons, handler
@@ -225,10 +226,9 @@ class ThesaurusTermEditForm(AdminModalEditForm):
         old_usage = term.usage
         changes = super().apply_changes(data)
         # Move term if label changed
+        # Update term location to avoid changing internal ID
         if 'label' in changes.get(IThesaurusTerm, ()):
-            terms = thesaurus.terms
-            del terms[old_label]  # pylint: disable=unsupported-delete-operation
-            terms[term.label] = term  # pylint: disable=unsupported-assignment-operation
+            thesaurus.replace_term(old_label, term)
         # Check modifications
         self.generic_changed = old_generic != term.generic
         self.usage_changed = old_usage != term.usage

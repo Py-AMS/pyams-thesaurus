@@ -547,6 +547,70 @@ and if it is not used as index key into a catalog:
     False
 
 
+Using thesaurus schema fields
+-----------------------------
+
+PyAMS_thesaurus package provides several field types which can bo used to provide thesaurus values:
+
+    >>> from zope.interface import Interface, implementer
+    >>> from zope.schema.fieldproperty import FieldProperty
+    >>> from pyams_thesaurus.schema import ThesaurusTermField, ThesaurusTermsListField
+
+    >>> class IThesaurusTest(Interface):
+    ...     term = ThesaurusTermField()
+    ...     terms = ThesaurusTermsListField()
+
+    >>> @implementer(IThesaurusTest)
+    ... class ThesaurusTest:
+    ...     term = FieldProperty(IThesaurusTest['term'])
+    ...     terms = FieldProperty(IThesaurusTest['terms'])
+
+    >>> term = thesaurus.terms.get('Base de loisir')
+    >>> test = ThesaurusTest()
+    >>> test.term = term
+    >>> test.term
+    <pyams_thesaurus.term.ThesaurusTerm object at 0x... oid 0x... in <ZODB.Connection.Connection object at 0x...>>
+    >>> test.terms = [term]
+    >>> test.terms
+    [<pyams_thesaurus.term.ThesaurusTerm object at 0x... oid 0x... in <ZODB.Connection.Connection object at 0x...>>]
+
+
+Updating term label
+-------------------
+
+When you create thesaurus based indexes, the value which is indexed is not the term label but it's internal ID.
+When you update a term label, you have to take care of not changing this ID; otherwise, you should have to reindex
+the whole database if you have to change a term label!
+
+    >>> from pyams_thesaurus.index import ThesaurusTermFieldIndex, ThesaurusTermsListFieldIndex
+    >>> index1 = ThesaurusTermFieldIndex(IThesaurusTest, 'term')
+    >>> index2 = ThesaurusTermsListFieldIndex(IThesaurusTest, 'terms')
+    >>> value1 = index1.discriminate(test, None)
+    >>> len(value1) == 1
+    True
+    >>> value2 = index2.discriminate(test, None)
+    >>> len(value2) == 1
+    True
+
+We can now change this term label:
+
+    >>> old_label = term.label
+    >>> term.label = 'New label'
+    >>> thesaurus.replace_term(old_label, term)
+
+    >>> value1_2 = index1.discriminate(test, None)
+    >>> len(value1_2) == 1
+    True
+    >>> value1 == value1_2
+    True
+
+    >>> value2_2 = index2.discriminate(test, None)
+    >>> len(value2_2) == 1
+    True
+    >>> value2 == value2_2
+    True
+
+
 Tests cleanup:
 
     >>> tearDown()
