@@ -85,7 +85,7 @@ thesaurus terms; several formats are available, the most common being SKOS/RDF:
     >>> from pyams_thesaurus.loader.skos import SKOSThesaurusLoader
 
     >>> datafile = os.path.join(CURRENT_DIR, '..', 'doctests', 'data', 'SAMPLE-SKOS.xml')
-    >>> with open(datafile) as data:
+    >>> with open(datafile, mode='rb') as data:
     ...     loader = SKOSThesaurusLoader()
     ...     thesaurus = loader.load(data)
 
@@ -162,6 +162,33 @@ A term can also be associated to several terms, outside it's hierarchy or not:
     'For\xeat', "R\xe9duction de l'habitat"]
 
 
+Creating a thesaurus from a TaxRef thesaurus file
+-------------------------------------------------
+
+TaxRef is a taxonomical referential managed by the french National Museum of Natural History (MNHN,
+Musem National d'Histoire Naturelle). A new official release of this referential is released every
+year by the museum.
+
+    >>> from pyams_thesaurus.thesaurus import Thesaurus
+    >>> from pyams_thesaurus.loader.config import ThesaurusLoaderConfiguration
+
+    >>> thesaurus = Thesaurus()
+
+    >>> config = ThesaurusLoaderConfiguration()
+    >>> config.language = 'fr'
+    >>> config.format = 'TaxRef'
+
+    >>> datafile = os.path.join(CURRENT_DIR, '..', 'doctests', 'data', 'SAMPLE-TaxRef.csv')
+    >>> with open(datafile, mode='rb') as data:
+    ...     config.data = ('sample.xml', data)
+    ...     thesaurus.load(config)
+
+    >>> len(thesaurus.terms)
+    273
+    >>> len(thesaurus.top_terms)
+    1
+
+
 Creating a thesaurus from a SuperDoc export thesaurus file
 ----------------------------------------------------------
 
@@ -174,9 +201,6 @@ previous one used for SKOS as the thesaurus is created before loading XML conten
 it was created by the loader in the previous example; but both methods can be used for all
 loaders:
 
-    >>> from pyams_thesaurus.thesaurus import Thesaurus
-    >>> from pyams_thesaurus.loader.config import ThesaurusLoaderConfiguration
-
     >>> thesaurus = Thesaurus()
 
     >>> config = ThesaurusLoaderConfiguration()
@@ -184,7 +208,7 @@ loaders:
     >>> config.format = 'SuperDoc'
 
     >>> datafile = os.path.join(CURRENT_DIR, '..', 'doctests', 'data', 'SAMPLE-Superdoc.xml')
-    >>> with open(datafile) as data:
+    >>> with open(datafile, mode='rb') as data:
     ...     config.data = ('sample.xml', data)
     ...     thesaurus.load(config)
 

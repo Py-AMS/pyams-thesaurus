@@ -124,6 +124,8 @@ class BaseThesaurusLoader:
         store = ThesaurusTermsContainer()
         # first loop to initialize terms
         for key, term in terms.items():
+            if term.label in store:
+                continue
             new_term = ThesaurusTerm(label=term.label,
                                      alt=term.alt,
                                      definition=term.definition,
@@ -135,7 +137,9 @@ class BaseThesaurusLoader:
             noLongerProvides(new_term, IThesaurusLoaderTerm)
         # second loop to update terms links
         for key, term in terms.items():
-            new_term = key_store[key]
+            new_term = key_store.get(key)
+            if new_term is None:
+                continue
             # check generic term
             if term.generic:
                 target = key_store.get(term.generic)
