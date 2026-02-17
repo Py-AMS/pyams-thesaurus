@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.3.0
+-----
+ - added french National Museum of Natural History (MNHN) TaxREF format loader
+
 2.2.0
 -----
  - added helper to update term label without changing it's internal ID
