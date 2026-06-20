@@ -86,10 +86,10 @@ class IThesaurusInfo(IThesaurusDescription):
         """Initialize thesaurus catalog"""
 
     def load(self, configuration):
-        """Load contents from given configuration"""
+        """Load contents from the given configuration"""
 
     def merge(self, configuration, thesaurus=None):
-        """Merge current thesaurus with another one for given configuration"""
+        """Merge the current thesaurus with another one with the given configuration"""
 
     def reset_terms_parent(self):
         """Reset thesaurus terms parent attribute"""

@@ -201,7 +201,7 @@ class ThesaurusBreadcrumbItem(AdminLayerBreadcrumbItem):
     @property
     def label(self):
         """Breadcrumb label getter"""
-        return self.context.name
+        return self.context.title
 
 
 @viewlet_config(name='properties.menu',
