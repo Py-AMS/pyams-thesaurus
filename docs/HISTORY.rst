@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.3.1
+-----
+ - updated thesaurus breadcrumb label
+
 2.3.0
 -----
  - added french National Museum of Natural History (MNHN) TaxREF format loader
