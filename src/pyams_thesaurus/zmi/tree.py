@@ -216,15 +216,15 @@ def switch_term_extract(request):
         raise HTTPBadRequest("Extract not found")
     if not request.has_permission(MANAGE_THESAURUS_EXTRACT_PERMISSION, context=extract):
         raise HTTPForbidden("You are not authorized to update this extract")
-    if extract.name in (term.extracts or ()):
+    if extract.__name__ in (term.extracts or ()):
         extract.remove_term(term)
     else:
         extract.add_term(term)
     return {
         'term': term.label,
-        'extract': extract.name,
+        'extract': extract.__name__,
         'color': extract.color,
-        'used': extract.name in term.extracts
+        'used': extract.__name__ in term.extracts
     }
 
 

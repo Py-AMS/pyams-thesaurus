@@ -326,7 +326,8 @@ class Thesaurus(ProtectedObjectMixin, Persistent, Contained):
                         'color': extract.color,
                         'used': name in (node.context.extracts or ())
                     }
-                    for name, extract in sorted(extracts.items(), key=lambda x: x[0])
+                    for name, extract in sorted(extracts.items(),
+                                                key=lambda x: x[0])
                 ],
                 'extensions': [
                     {
@@ -513,7 +514,7 @@ class ThesaurusExtract(ProtectedObjectMixin, Persistent, Contained):
         """Extract nodes getter"""
         if request is None:
             request = check_request()
-        extract_name = self.name
+        extract_name = self.__name__
         for child in INode(term).get_children():
             node = INode(child)
             if extract_name in (node.context.extracts or ()):

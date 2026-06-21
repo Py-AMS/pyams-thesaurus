@@ -45,6 +45,7 @@ from pyams_thesaurus.interfaces.thesaurus import IThesaurus, IThesaurusExtract, 
 from pyams_thesaurus.zmi.thesaurus import thesaurus_modal_form_title
 from pyams_thesaurus.zmi.tree import ThesaurusTermsView
 from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
+from pyams_utils.interfaces.intids import IUniqueID
 from pyams_utils.interfaces.tree import INode, ITree
 from pyams_utils.registry import get_utility
 from pyams_utils.traversing import get_parent
@@ -256,7 +257,8 @@ class ThesaurusExtractAddForm(ThesaurusExtractAddFormMixin, AdminModalAddForm):
 
     def add(self, obj):
         extracts = IThesaurusExtracts(self.context)
-        extracts[obj.name] = obj
+        oid = IUniqueID(obj).oid
+        extracts[oid] = obj
 
 
 #
@@ -292,8 +294,9 @@ class ThesaurusExtractCloneForm(ThesaurusExtractAddFormMixin, AdminModalAddForm)
         return copy(self.context)
 
     def add(self, obj):
+        oid = IUniqueID(obj).oid
         extracts = IThesaurusExtracts(self.context.__parent__)
-        extracts[obj.name] = obj
+        extracts[oid] = obj
         source = IThesaurusExtract(self.context)
         for term in source.terms or ():
             obj.add_term(term)
@@ -414,7 +417,7 @@ class ThesaurusExtractTermsTree(Viewlet):
     def tree(self):
         """Terms tree content getter"""
         thesaurus = get_parent(self.context, IThesaurus)
-        extract = self.context.name
+        extract = self.context.__name__
         return sorted((
             INode(node)
             for node in ITree(thesaurus).get_root_nodes()

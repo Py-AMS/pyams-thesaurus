@@ -253,7 +253,7 @@ class ThesaurusTerm(Persistent, Contained):
     def add_extract(self, extract, check=True):
         """Add term to given extract"""
         if IThesaurusExtract.providedBy(extract):  # pylint: disable=no-value-for-parameter
-            extract = extract.name
+            extract = extract.__name__
         if check:
             self.extracts = (self.extracts or set()) | {extract}
         else:
@@ -265,7 +265,7 @@ class ThesaurusTerm(Persistent, Contained):
     def remove_extract(self, extract, check=True):
         """Removed term from given extract"""
         if IThesaurusExtract.providedBy(extract):  # pylint: disable=no-value-for-parameter
-            extract = extract.name
+            extract = extract.__name__
         if check:
             self.extracts = (self.extracts or set()) - {extract}
         else:

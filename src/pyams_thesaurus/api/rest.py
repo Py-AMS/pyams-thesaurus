@@ -117,10 +117,10 @@ def get_extracts(request):
         'status': STATUS.SUCCESS.value,
         'results': [
             {
-                'id': extract.name,
+                'id': name,
                 'text': extract.name
             }
-            for extract in extracts.values()
+            for name, extract in extracts.items()
         ]
     }
 

@@ -36,10 +36,10 @@
 					role="treeitem" class="parent_li">
 					<tal:loop repeat="extract reversed(extracts.values())">
 						<div class="float-right mr-2"
-							 tal:define="selected extract.name in node.context.extracts;
+							 tal:define="selected extract.__name__ in node.context.extracts;
 										 klass 'fas fa-square used' if selected else 'far fa-square'">
 							<i class="fa-fw ${klass} extract-checker"
-							   data-ams-extract-name="${extract.name}"
+							   data-ams-extract-name="${extract.__name__}"
 							   style="color: #${extract.color};"></i>
 						</div>
 					</tal:loop>
