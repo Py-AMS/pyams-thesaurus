@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.3.2
+-----
+ - use unique ID instead of name to define thesaurus extract key to avoid errors when using special
+   characters in names
+
 2.3.1
 -----
  - updated thesaurus breadcrumb label
